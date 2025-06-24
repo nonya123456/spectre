@@ -2,7 +2,7 @@ extends Node
 
 
 func _ready() -> void:
-    print("Hello from main.gd")
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _notification(what: int) -> void:
