@@ -2,4 +2,4 @@ extends Node
 
 
 func _ready():
-    print("Hello, World")
+    print("Hello from main.gd")
