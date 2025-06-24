@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:aadb90191f2367867c767d09e0dacc5b2c4e5754cf96675c8383ac37bbf73497
-size 393
+[gd_scene load_steps=3 format=3 uid="uid://bmxxso671upoa"]
+
+[ext_resource type="Script" uid="uid://bhj5xqur5yv5g" path="res://game/main.gd" id="1_oa506"]
+[ext_resource type="PackedScene" uid="uid://drem2vixfw264" path="res://game/game_world.tscn" id="2_xtpaf"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_oa506")
+
+[node name="GameWorld" parent="." instance=ExtResource("2_xtpaf")]
