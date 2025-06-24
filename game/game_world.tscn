@@ -1,15 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world.gd" id="1_3xdgc"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_3xdgc"]
+[ext_resource type="PackedScene" uid="uid://dcyv2lciboy50" path="res://game/block.tscn" id="2_iexac"]
 
 [node name="GameWorld" type="Node3D"]
 script = ExtResource("1_3xdgc")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 2.5, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 2.5)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
-mesh = SubResource("BoxMesh_3xdgc")
+[node name="Block" parent="." instance=ExtResource("2_iexac")]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
