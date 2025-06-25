@@ -17,3 +17,11 @@ mono_crash.*.json
 
 # VS Code specific ignores
 .vscode/
+
+# GDExtension specific ignores
+game/bin/*
+!game/bin/*.gdextension*
+.sconsign*.dblite
+
+# Binary files
+*.os
