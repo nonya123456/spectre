@@ -6,7 +6,7 @@ using namespace godot;
 
 void MazeGenerator::_bind_methods()
 {
-    ClassDB::bind_static_method("MazeGenerator", D_METHOD("generate_maze"), &MazeGenerator::generate_maze);
+    ClassDB::bind_static_method("MazeGenerator", D_METHOD("generate_maze", "width", "height"), &MazeGenerator::generate_maze);
 }
 
 MazeGenerator::MazeGenerator()
@@ -17,7 +17,13 @@ MazeGenerator::~MazeGenerator()
 {
 }
 
-String MazeGenerator::generate_maze(int width, int height)
+Ref<MazeGraph> MazeGenerator::generate_maze(int width, int height)
 {
-    return String("Hello from MazeGenerator") + " with width: " + String::num(width) + " and height: " + String::num(height);
+    Ref<MazeGraph> maze_graph;
+    maze_graph.instantiate();
+
+    maze_graph->set_width(width);
+    maze_graph->set_height(height);
+
+    return maze_graph;
 }

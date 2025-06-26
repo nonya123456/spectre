@@ -1,6 +1,8 @@
 #ifndef MAZE_GENERATOR_H
 #define MAZE_GENERATOR_H
 
+#include "maze_graph.h"
+
 #include <godot_cpp/classes/object.hpp>
 
 namespace godot
@@ -13,7 +15,7 @@ namespace godot
         MazeGenerator();
         ~MazeGenerator();
 
-        static String generate_maze(int width, int height);
+        static Ref<MazeGraph> generate_maze(int width, int height);
 
     protected:
         static void _bind_methods();
