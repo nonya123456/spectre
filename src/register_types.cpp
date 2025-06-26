@@ -1,6 +1,7 @@
 #include "register_types.h"
 
 #include "foo.h"
+#include "maze_generator.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -16,6 +17,7 @@ void initialize_game_module(ModuleInitializationLevel p_level)
     }
 
     GDREGISTER_RUNTIME_CLASS(Foo);
+    GDREGISTER_RUNTIME_CLASS(MazeGenerator);
 }
 
 void uninitialize_game_module(ModuleInitializationLevel p_level)
