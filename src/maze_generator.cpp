@@ -34,7 +34,9 @@ Ref<MazeGraph> MazeGenerator::generate_maze(int width, int height)
     std::vector<std::pair<int, int>> available_cells;
     std::vector<std::pair<int, int>> edges;
 
-    RandomNumberGenerator *rng = memnew(RandomNumberGenerator);
+    Ref<RandomNumberGenerator> rng;
+    rng.instantiate();
+
     rng->randomize();
 
     int start_x = rng->randi_range(0, width - 1);
