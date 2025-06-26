@@ -7,7 +7,7 @@ namespace godot
 {
     class MazeGenerator : public Object
     {
-        GDCLASS(MazeGenerator, Object);
+        GDCLASS(MazeGenerator, Object)
 
     public:
         MazeGenerator();
