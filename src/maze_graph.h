@@ -19,12 +19,17 @@ namespace godot
         void set_height(int p_height);
         int get_height() const;
 
+        void set_adj(const std::vector<std::set<int>> &p_adj);
+
+        int get_num_edges();
+
     protected:
         static void _bind_methods();
 
     private:
         int width;
         int height;
+        std::vector<std::set<int>> adj;
     };
 }
 

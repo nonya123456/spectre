@@ -13,6 +13,8 @@ void MazeGraph::_bind_methods()
     ClassDB::bind_method(D_METHOD("set_height", "p_height"), &MazeGraph::set_height);
     ClassDB::bind_method(D_METHOD("get_height"), &MazeGraph::get_height);
     ADD_PROPERTY(PropertyInfo(Variant::STRING, "height"), "set_height", "get_height");
+
+    ClassDB::bind_method(D_METHOD("get_num_edges"), &MazeGraph::get_num_edges);
 }
 
 MazeGraph::MazeGraph()
@@ -41,4 +43,19 @@ void MazeGraph::set_height(int p_height)
 int MazeGraph::get_height() const
 {
     return height;
+}
+
+void MazeGraph::set_adj(const std::vector<std::set<int>> &p_adj)
+{
+    adj = p_adj;
+}
+
+int MazeGraph::get_num_edges()
+{
+    int count = 0;
+    for (const auto &edges : adj)
+    {
+        count += edges.size();
+    }
+    return count / 2;
 }
