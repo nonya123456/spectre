@@ -24,4 +24,22 @@ game/bin/*
 .sconsign*.dblite
 
 # Binary files
+*.o
 *.os
+*.so
+*.obj
+*.bc
+*.pyc
+*.dblite
+*.pdb
+*.lib
+*.config
+*.creator
+*.creator.user
+*.files
+*.includes
+*.idb
+*.exp
+
+# compile_commands.json
+compile_commands.json
