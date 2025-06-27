@@ -15,7 +15,7 @@ namespace godot
         MazeGenerator();
         ~MazeGenerator();
 
-        static Ref<MazeGraph> generate_maze(int width, int height);
+        static Ref<MazeGraph> generate_maze(int seed, int width, int height);
 
     protected:
         static void _bind_methods();

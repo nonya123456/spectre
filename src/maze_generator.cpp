@@ -18,11 +18,11 @@ MazeGenerator::~MazeGenerator()
 {
 }
 
-Ref<MazeGraph> MazeGenerator::generate_maze(int width, int height)
+Ref<MazeGraph> MazeGenerator::generate_maze(int seed, int width, int height)
 {
     Ref<RandomNumberGenerator> rng;
     rng.instantiate();
-    rng->set_seed(0);
+    rng->set_seed(seed);
 
     std::vector<std::set<int>> adj(width * height, std::set<int>());
 

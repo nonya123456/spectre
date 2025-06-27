@@ -1,5 +1,6 @@
 extends Node3D
 
+@export var rng_seed: int = 0
 @export var width: int = 10
 @export var height: int = 10
 @export var node_size: float = 3.0
@@ -10,7 +11,8 @@ extends Node3D
 
 
 func _ready() -> void:
-	var maze_graph: MazeGraph = MazeGenerator.generate_maze(width, height)
+	seed(rng_seed)
+	var maze_graph: MazeGraph = MazeGenerator.generate_maze(rng_seed, width, height)
 	var map_height: float = node_size * height + wall_thickness * (height + 1)
 	var map_width: float = node_size * width + wall_thickness * (width + 1)
 
