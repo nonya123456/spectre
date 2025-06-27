@@ -2,11 +2,12 @@ class_name Block
 
 extends StaticBody3D
 
-func set_size(size: Vector3) -> void:
-    var shape_node: Node = get_node_or_null("CollisionShape3D")
-    if shape_node and shape_node.shape is BoxShape3D:
-        shape_node.shape.size = size
 
-    var mesh_node: Node = get_node_or_null("MeshInstance3D")
-    if mesh_node and mesh_node.mesh is BoxMesh:
-        mesh_node.mesh.size = size
+func set_size(size: Vector3) -> void:
+    var collision_shape: CollisionShape3D = $CollisionShape3D
+    collision_shape.shape = BoxShape3D.new()
+    collision_shape.shape.size = size
+
+    var mesh_instance: MeshInstance3D = $MeshInstance3D
+    mesh_instance.mesh = BoxMesh.new()
+    mesh_instance.mesh.size = size
