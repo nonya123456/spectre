@@ -5,7 +5,7 @@ extends Node3D
 @export var height: int = 10
 @export var node_size: float = 3.0
 @export var node_height: float = 6.0
-@export var wall_thickness: float = 0.6
+@export var wall_thickness: float = 0.5
 @export var wall_spawn_chance: float = 0.8
 @export var block_scene: PackedScene = preload("res://game/block.tscn")
 
@@ -53,7 +53,7 @@ func _ready() -> void:
 		for j in range(width):
 			if j + 1 < width && !maze_graph.is_adjacent(i, j, i, j + 1) && randf() < wall_spawn_chance:
 				var wall: Block = block_scene.instantiate()
-				wall.set_size(Vector3(node_size + 2 * wall_thickness, node_height, wall_thickness))
+				wall.set_size(Vector3(node_size, node_height, wall_thickness))
 				var pos_x: float = (i + 1) * (node_size + wall_thickness) - node_size / 2 - map_height / 2
 				var pos_z: float = (j + 1) * (node_size + wall_thickness) + wall_thickness / 2 - map_width / 2
 				wall.position = Vector3(pos_x, node_height / 2, pos_z)
@@ -61,7 +61,7 @@ func _ready() -> void:
 
 			if i + 1 < height && !maze_graph.is_adjacent(i, j, i + 1, j) && randf() < wall_spawn_chance:
 				var wall: Block = block_scene.instantiate()
-				wall.set_size(Vector3(wall_thickness, node_height, node_size + 2 * wall_thickness))
+				wall.set_size(Vector3(wall_thickness, node_height, node_size))
 				var pos_x: float = (i + 1) * (node_size + wall_thickness) + wall_thickness / 2 - map_height / 2
 				var pos_z: float = (j + 1) * (node_size + wall_thickness) - node_size / 2 - map_width / 2
 				wall.position = Vector3(pos_x, node_height / 2, pos_z)

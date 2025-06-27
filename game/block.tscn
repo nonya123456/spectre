@@ -1,10 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjwr4ube7o2uy"]
+[gd_scene load_steps=7 format=3 uid="uid://cjwr4ube7o2uy"]
 
 [ext_resource type="Script" uid="uid://dc4r2dlrrcqr3" path="res://game/block.gd" id="1_d5x6n"]
+[ext_resource type="Texture2D" uid="uid://b7rqk7x3kbc6f" path="res://game/block_texture.png" id="2_8df8g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1mh2"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bux31"]
+load_path = "res://.godot/imported/block_texture.png-9b70e524f6b54ea0a27a0fd9797a4bdd.s3tc.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5x6n"]
+albedo_texture = ExtResource("2_8df8g")
+metallic_specular = 0.0
+normal_texture = SubResource("CompressedTexture2D_bux31")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_d5x6n"]
 
