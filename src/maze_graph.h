@@ -21,7 +21,9 @@ namespace godot
 
         void set_adj(const std::vector<std::set<int>> &p_adj);
 
-        int get_num_edges();
+        int get_num_edges() const;
+
+        bool is_adjacent(int ax, int ay, int bx, int by) const;
 
     protected:
         static void _bind_methods();

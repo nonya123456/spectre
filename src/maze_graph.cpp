@@ -15,6 +15,8 @@ void MazeGraph::_bind_methods()
     ADD_PROPERTY(PropertyInfo(Variant::STRING, "height"), "set_height", "get_height");
 
     ClassDB::bind_method(D_METHOD("get_num_edges"), &MazeGraph::get_num_edges);
+
+    ClassDB::bind_method(D_METHOD("is_adjacent", "ax", "ay", "bx", "by"), &MazeGraph::is_adjacent);
 }
 
 MazeGraph::MazeGraph()
@@ -50,7 +52,7 @@ void MazeGraph::set_adj(const std::vector<std::set<int>> &p_adj)
     adj = p_adj;
 }
 
-int MazeGraph::get_num_edges()
+int MazeGraph::get_num_edges() const
 {
     int count = 0;
     for (const auto &edges : adj)
@@ -58,4 +60,17 @@ int MazeGraph::get_num_edges()
         count += edges.size();
     }
     return count / 2;
+}
+
+bool MazeGraph::is_adjacent(int ax, int ay, int bx, int by) const
+{
+    if (ax < 0 || ax >= width || ay < 0 || ay >= height || bx < 0 || bx >= width || by < 0 || by >= height)
+    {
+        return false;
+    }
+
+    int a_index = ax + ay * width;
+    int b_index = bx + by * width;
+
+    return adj[a_index].find(b_index) != adj[a_index].end();
 }
