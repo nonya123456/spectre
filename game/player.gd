@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var camera: Camera3D = $Camera3D
+@onready var spot_light: SpotLight3D = $SpotLight3D
 
 @export var move_speed: float = 5.0
 @export var sensitivity: float = 0.2
@@ -46,6 +47,7 @@ func _handle_look() -> void:
     pitch -= look_input.y * sensitivity
     pitch = clamp(pitch, -89, 89)
     camera.rotation_degrees.x = pitch
+    spot_light.rotation_degrees.x = pitch
 
     var horizontal: float = - look_input.x * sensitivity
     var horizontal_rad: float = deg_to_rad(horizontal)
