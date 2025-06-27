@@ -91,6 +91,28 @@ Ref<MazeGraph> MazeGenerator::generate_maze(int seed, int width, int height)
         }
     }
 
+    // add more edges randomly
+    for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j < width; ++j)
+        {
+            int index = i * width + j;
+            int right_index = i * width + (j + 1);
+            if (adj[index].find(right_index) == adj[index].end() && j + 1 < width && rng->randf() < 0.2)
+            {
+                adj[index].insert(right_index);
+                adj[right_index].insert(index);
+            }
+
+            int down_index = (i + 1) * width + j;
+            if (adj[index].find(down_index) == adj[index].end() && i + 1 < height && rng->randf() < 0.2)
+            {
+                adj[index].insert(down_index);
+                adj[down_index].insert(index);
+            }
+        }
+    }
+
     Ref<MazeGraph> maze_graph;
     maze_graph.instantiate();
 

@@ -6,12 +6,10 @@ extends Node3D
 @export var node_size: float = 3.0
 @export var node_height: float = 6.0
 @export var wall_thickness: float = 0.5
-@export var wall_spawn_chance: float = 0.8
 @export var block_scene: PackedScene = preload("res://game/block.tscn")
 
 
 func _ready() -> void:
-	seed(rng_seed)
 	var maze_graph: MazeGraph = MazeGenerator.generate_maze(rng_seed, width, height)
 	var map_height: float = node_size * height + wall_thickness * (height + 1)
 	var map_width: float = node_size * width + wall_thickness * (width + 1)
@@ -49,9 +47,10 @@ func _ready() -> void:
 	outer_wall_4.position = Vector3((map_height - wall_thickness) / 2, node_height / 2, 0)
 	add_child(outer_wall_4)
 
+	# Inner walls
 	for i in range(height):
 		for j in range(width):
-			if j + 1 < width && !maze_graph.is_adjacent(i, j, i, j + 1) && randf() < wall_spawn_chance:
+			if j + 1 < width && !maze_graph.is_adjacent(i, j, i, j + 1):
 				var wall: Block = block_scene.instantiate()
 				wall.set_size(Vector3(node_size, node_height, wall_thickness))
 				var pos_x: float = (i + 1) * (node_size + wall_thickness) - node_size / 2 - map_height / 2
@@ -59,10 +58,22 @@ func _ready() -> void:
 				wall.position = Vector3(pos_x, node_height / 2, pos_z)
 				add_child(wall)
 
-			if i + 1 < height && !maze_graph.is_adjacent(i, j, i + 1, j) && randf() < wall_spawn_chance:
+			if i + 1 < height && !maze_graph.is_adjacent(i, j, i + 1, j):
 				var wall: Block = block_scene.instantiate()
 				wall.set_size(Vector3(wall_thickness, node_height, node_size))
 				var pos_x: float = (i + 1) * (node_size + wall_thickness) + wall_thickness / 2 - map_height / 2
 				var pos_z: float = (j + 1) * (node_size + wall_thickness) - node_size / 2 - map_width / 2
 				wall.position = Vector3(pos_x, node_height / 2, pos_z)
 				add_child(wall)
+	
+	# Corners
+	for i in range(height - 1):
+		for j in range(width - 1):
+			if !maze_graph.is_adjacent(i, j, i + 1, j) or !maze_graph.is_adjacent(i, j, i, j + 1) or \
+			   !maze_graph.is_adjacent(i, j + 1, i + 1, j + 1) or !maze_graph.is_adjacent(i + 1, j, i + 1, j + 1):
+				var corner: Block = block_scene.instantiate()
+				corner.set_size(Vector3(wall_thickness, node_height, wall_thickness))
+				var pos_x: float = (i + 1) * (node_size + wall_thickness) + wall_thickness / 2 - map_height / 2
+				var pos_z: float = (j + 1) * (node_size + wall_thickness) + wall_thickness / 2 - map_width / 2
+				corner.position = Vector3(pos_x, node_height / 2, pos_z)
+				add_child(corner)
