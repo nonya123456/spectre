@@ -64,13 +64,13 @@ int MazeGraph::get_num_edges() const
 
 bool MazeGraph::is_adjacent(int ax, int ay, int bx, int by) const
 {
-    if (ax < 0 || ax >= width || ay < 0 || ay >= height || bx < 0 || bx >= width || by < 0 || by >= height)
+    if (ax < 0 || ax >= height || ay < 0 || ay >= width || bx < 0 || bx >= height || by < 0 || by >= width)
     {
         return false;
     }
 
-    int a_index = ax + ay * width;
-    int b_index = bx + by * width;
+    int a_index = ax * width + ay;
+    int b_index = bx * width + by;
 
     return adj[a_index].find(b_index) != adj[a_index].end();
 }
