@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0xfp88mk5t7l"]
+
+[ext_resource type="PackedScene" uid="uid://cjopx8slp5li1" path="res://game/player/flashlight/flashlight.tscn" id="1_42fkt"]
+
+[node name="ViewModel" type="Camera3D"]
+cull_mask = 2
+fov = 60.0
+
+[node name="Flashlight" parent="." instance=ExtResource("1_42fkt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 0.3, -0.3, -0.6)

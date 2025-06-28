@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world.gd" id="1_3xdgc"]
-[ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/player.tscn" id="3_8hsaj"]
+[ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/player/player.tscn" id="3_8hsaj"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
 background_mode = 2

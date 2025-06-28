@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjopx8slp5li1"]
+
+[ext_resource type="PackedScene" uid="uid://b454mspgenw01" path="res://game/player/flashlight/Flashlight.fbx" id="1_ai56p"]
+
+[node name="Flashlight" instance=ExtResource("1_ai56p")]
+
+[node name="Flashlight" parent="." index="0"]
+layers = 2
