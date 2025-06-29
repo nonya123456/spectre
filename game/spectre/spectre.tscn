@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnooai51w41s6"]
+
+[ext_resource type="PackedScene" uid="uid://dqa74fp4ipu71" path="res://game/spectre/Spectre.fbx" id="1_mufby"]
+[ext_resource type="Shader" uid="uid://0w1oc3m8kur8" path="res://game/spectre/spectre.gdshader" id="2_6i8gk"]
+[ext_resource type="Texture2D" uid="uid://bxx5isperlb30" path="res://game/spectre/Spectre Base Color.png" id="3_42hh0"]
+[ext_resource type="Texture2D" uid="uid://dpvdlxthrkquo" path="res://game/spectre/Spectre Emission Color.png" id="4_uslsb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ga27q"]
+render_priority = 0
+shader = ExtResource("2_6i8gk")
+shader_parameter/albedo_texture = ExtResource("3_42hh0")
+shader_parameter/emission_texture = ExtResource("4_uslsb")
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/emission_strength = 2.0
+
+[node name="Spectre" instance=ExtResource("1_mufby")]
+
+[node name="Spectre" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_ga27q")

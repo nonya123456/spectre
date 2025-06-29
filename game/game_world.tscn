@@ -1,16 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=5 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world.gd" id="1_3xdgc"]
+[ext_resource type="PackedScene" uid="uid://bnooai51w41s6" path="res://game/spectre/spectre.tscn" id="2_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/player/player.tscn" id="3_8hsaj"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
 background_mode = 2
+glow_enabled = true
 
 [node name="GameWorld" type="Node3D"]
 script = ExtResource("1_3xdgc")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_iexac")
+
+[node name="Spectre" parent="." instance=ExtResource("2_8hsaj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.893, 0.2, 0)
 
 [node name="Player" parent="." instance=ExtResource("3_8hsaj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.61576, 0)
