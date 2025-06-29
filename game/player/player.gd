@@ -1,11 +1,12 @@
 extends CharacterBody3D
 
 @onready var camera: Camera3D = $Camera3D
-@onready var view_model: Node3D = $Camera3D/SubViewportContainer/SubViewport/ViewModel
+@onready var view_model: ViewModel = $Camera3D/SubViewportContainer/SubViewport/ViewModel
 @onready var spot_light: SpotLight3D = $SpotLight3D
 
 @export var move_speed: float = 5.0
 @export var sensitivity: float = 0.2
+@export var sway_strength: float = 0.0002
 var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
 
@@ -45,6 +46,8 @@ func _physics_process(delta: float) -> void:
 
 	_update_view_model()
 
+	look_input = Vector2.ZERO
+
 
 func _handle_look() -> void:
 	pitch -= look_input.y * sensitivity
@@ -56,9 +59,8 @@ func _handle_look() -> void:
 	var horizontal_rad: float = deg_to_rad(horizontal)
 	rotate_y(horizontal_rad)
 
-	look_input = Vector2.ZERO
-
 
 func _update_view_model() -> void:
 	view_model.global_position = camera.global_position
 	view_model.global_rotation_degrees = camera.global_rotation_degrees
+	view_model.sway(Vector2(-look_input.x * sway_strength, look_input.y * sway_strength))
