@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cekqmi4smdlv1"]
+[gd_scene load_steps=4 format=3 uid="uid://cekqmi4smdlv1"]
 
 [ext_resource type="PackedScene" uid="uid://dqa74fp4ipu71" path="res://game/spectre/Spectre.fbx" id="1_exw2y"]
+[ext_resource type="Script" uid="uid://dh2yo2wvmguwy" path="res://game/spectre/spectre_model.gd" id="2_8mnpb"]
 [ext_resource type="Material" uid="uid://r10t7q4qmqlr" path="res://game/spectre/spectre_material.tres" id="2_wdfu8"]
 
 [node name="SpectreModel" instance=ExtResource("1_exw2y")]
+script = ExtResource("2_8mnpb")
 
 [node name="Skeleton3D" parent="rig" index="0"]
 bones/1/position = Vector3(0, 0.000552, 0.0233319)

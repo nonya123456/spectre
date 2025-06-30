@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bolwbkdcbqdjo"]
+[gd_scene load_steps=3 format=3 uid="uid://bolwbkdcbqdjo"]
 
+[ext_resource type="Script" uid="uid://j2gyk6vbrll7" path="res://game/spectre/spectre.gd" id="1_6i8gk"]
 [ext_resource type="PackedScene" uid="uid://cekqmi4smdlv1" path="res://game/spectre/spectre_model.tscn" id="1_mufby"]
 
 [node name="Spectre" type="Node3D"]
+script = ExtResource("1_6i8gk")
 
 [node name="SpectreModel" parent="." instance=ExtResource("1_mufby")]

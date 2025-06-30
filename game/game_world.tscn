@@ -19,3 +19,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19653, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("3_8hsaj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.61576, 0)
+
+[connection signal="flashlight_toggled" from="Player" to="." method="_on_player_flashlight_toggled"]
