@@ -6,4 +6,4 @@ extends Node3D
 
 
 func set_emission_strength(strength: float) -> void:
-    mesh.get_surface_override_material(0).set_shader_parameter("emission_strength", strength)
+	mesh.get_surface_override_material(0).set_shader_parameter("emission_strength", strength)
