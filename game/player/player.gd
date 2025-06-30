@@ -49,6 +49,11 @@ func _physics_process(delta: float) -> void:
 	look_input = Vector2.ZERO
 
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("toggle_flashlight"):
+		spot_light.visible = !spot_light.visible
+
+
 func _handle_look() -> void:
 	pitch -= look_input.y * sensitivity
 	pitch = clamp(pitch, -89, 89)
