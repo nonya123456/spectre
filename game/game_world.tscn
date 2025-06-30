@@ -8,6 +8,7 @@
 [sub_resource type="Environment" id="Environment_iexac"]
 background_mode = 2
 glow_enabled = true
+glow_bloom = 0.3
 
 [node name="GameWorld" type="Node3D"]
 script = ExtResource("1_3xdgc")
