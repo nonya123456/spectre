@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh0337re0kepi"]
+
+[ext_resource type="PackedScene" uid="uid://jimyyxe40t24" path="res://game/orb/orb_model.tscn" id="1_8nuja"]
+[ext_resource type="Script" uid="uid://do1dnhljus5qq" path="res://game/orb/orb.gd" id="1_jjww1"]
+
+[node name="Orb" type="Node3D"]
+script = ExtResource("1_jjww1")
+
+[node name="OrbModel" parent="." instance=ExtResource("1_8nuja")]

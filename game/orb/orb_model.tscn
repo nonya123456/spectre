@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://jimyyxe40t24"]
+
+[ext_resource type="PackedScene" uid="uid://v107f0icy2gt" path="res://game/orb/Orb.fbx" id="1_orwgi"]
+[ext_resource type="Material" uid="uid://caaaiqq056clt" path="res://game/orb/orb_material.tres" id="2_mmx3n"]
+
+[node name="OrbModel" instance=ExtResource("1_orwgi")]
+
+[node name="Orb" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_mmx3n")
