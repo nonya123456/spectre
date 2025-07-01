@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmxxso671upoa"]
 
 [ext_resource type="Script" uid="uid://bhj5xqur5yv5g" path="res://game/main.gd" id="1_oa506"]
-[ext_resource type="PackedScene" uid="uid://cvjdgv88d07fr" path="res://game/game_world/game_world_viewport_container.tscn" id="2_xtpaf"]
+[ext_resource type="PackedScene" uid="uid://cvjdgv88d07fr" path="res://game/game_world/game_world_viewport.tscn" id="2_xtpaf"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_oa506")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GameWorldViewportContainer" parent="CanvasLayer" instance=ExtResource("2_xtpaf")]
+[node name="GameWorldViewport" parent="CanvasLayer" instance=ExtResource("2_xtpaf")]

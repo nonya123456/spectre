@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://drem2vixfw264" path="res://game/game_world/game_world.tscn" id="1_resgi"]
 
-[node name="GameWorldViewportContainer" type="SubViewportContainer"]
+[node name="GameWorldViewport" type="SubViewportContainer"]
 offset_right = 1920.0
 offset_bottom = 1080.0
 stretch = true
