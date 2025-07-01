@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 @onready var spectre: Spectre = $Spectre
 
