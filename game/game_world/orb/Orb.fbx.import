@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b454mspgenw01"
-path="res://.godot/imported/Flashlight.fbx-d90173f6e1c288f250d8a106470304f9.scn"
+uid="uid://v107f0icy2gt"
+path="res://.godot/imported/Orb.fbx-0d60924c29a541e72e63b80b66517faf.scn"
 
 [deps]
 
-source_file="res://game/player/flashlight/Flashlight.fbx"
-dest_files=["res://.godot/imported/Flashlight.fbx-d90173f6e1c288f250d8a106470304f9.scn"]
+source_file="res://game/game_world/orb/Orb.fbx"
+dest_files=["res://.godot/imported/Orb.fbx-0d60924c29a541e72e63b80b66517faf.scn"]
 
 [params]
 

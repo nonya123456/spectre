@@ -8,7 +8,7 @@ extends Node3D
 @export var node_size: float = 3.0
 @export var node_height: float = 6.0
 @export var wall_thickness: float = 0.5
-@export var block_scene: PackedScene = preload("res://game/block.tscn")
+@export var block_scene: PackedScene = preload("res://game/game_world/block/block.tscn")
 
 
 func _ready() -> void:

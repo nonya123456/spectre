@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cjwr4ube7o2uy"]
 
-[ext_resource type="Script" uid="uid://dc4r2dlrrcqr3" path="res://game/block.gd" id="1_d5x6n"]
-[ext_resource type="Texture2D" uid="uid://b7rqk7x3kbc6f" path="res://game/block_texture.png" id="2_8df8g"]
+[ext_resource type="Script" uid="uid://dc4r2dlrrcqr3" path="res://game/game_world/block/block.gd" id="1_d5x6n"]
+[ext_resource type="Texture2D" uid="uid://b7rqk7x3kbc6f" path="res://game/game_world/block/block_texture.png" id="2_8df8g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1mh2"]
 

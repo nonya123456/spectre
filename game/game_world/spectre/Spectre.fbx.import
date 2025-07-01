@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dqa74fp4ipu71"
-path="res://.godot/imported/Spectre.fbx-01f652d62db34472ba6242251ee8e9af.scn"
+path="res://.godot/imported/Spectre.fbx-fa5d0990904b70056f3a2f3f499edb98.scn"
 
 [deps]
 
-source_file="res://game/spectre/Spectre.fbx"
-dest_files=["res://.godot/imported/Spectre.fbx-01f652d62db34472ba6242251ee8e9af.scn"]
+source_file="res://game/game_world/spectre/Spectre.fbx"
+dest_files=["res://.godot/imported/Spectre.fbx-fa5d0990904b70056f3a2f3f499edb98.scn"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7rqk7x3kbc6f"
-path.s3tc="res://.godot/imported/block_texture.png-9b70e524f6b54ea0a27a0fd9797a4bdd.s3tc.ctex"
+uid="uid://dpvdlxthrkquo"
+path.s3tc="res://.godot/imported/Spectre Emission Color.png-efe583cbf8d8961f005dd9b34b4cfb8e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://game/block_texture.png"
-dest_files=["res://.godot/imported/block_texture.png-9b70e524f6b54ea0a27a0fd9797a4bdd.s3tc.ctex"]
+source_file="res://game/game_world/spectre/Spectre Emission Color.png"
+dest_files=["res://.godot/imported/Spectre Emission Color.png-efe583cbf8d8961f005dd9b34b4cfb8e.s3tc.ctex"]
 
 [params]
 
