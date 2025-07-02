@@ -1,12 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvjdgv88d07fr"]
+[gd_scene load_steps=5 format=3 uid="uid://cvjdgv88d07fr"]
 
 [ext_resource type="PackedScene" uid="uid://drem2vixfw264" path="res://game/game_world/game_world.tscn" id="1_resgi"]
+[ext_resource type="Shader" uid="uid://bnpekgkrk2qso" path="res://game/game_world/game_world_viewport.gdshader" id="1_vea10"]
+[ext_resource type="Script" uid="uid://bf53ivrt14h1r" path="res://game/game_world/game_world_viewport.gd" id="2_4oxqw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4oxqw"]
+shader = ExtResource("1_vea10")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/force = 1.0
 
 [node name="GameWorldViewport" type="SubViewportContainer"]
+material = SubResource("ShaderMaterial_4oxqw")
 offset_right = 1920.0
 offset_bottom = 1080.0
 stretch = true
 stretch_shrink = 3
+script = ExtResource("2_4oxqw")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
