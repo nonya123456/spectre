@@ -1,5 +1,8 @@
 extends Node
 
+signal haunt_entered
+signal haunt_exited
+
 @onready var spectre: Spectre = $Spectre
 @onready var player: Node3D = $Player
 
@@ -86,3 +89,11 @@ func _ready() -> void:
 
 func _on_player_flashlight_toggled(is_light_visible: bool) -> void:
 	spectre.on_player_flashlight_toggled(is_light_visible)
+
+
+func _on_spectre_target_found() -> void:
+	haunt_entered.emit()
+
+
+func _on_spectre_target_lost() -> void:
+	haunt_exited.emit()

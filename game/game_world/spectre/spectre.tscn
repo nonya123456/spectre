@@ -5,6 +5,7 @@
 
 [node name="Spectre" type="Node3D"]
 script = ExtResource("1_6i8gk")
+collision_mask = 1
 
 [node name="SpectreModel" parent="." instance=ExtResource("1_mufby")]
 
