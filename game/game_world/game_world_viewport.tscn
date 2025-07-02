@@ -8,6 +8,7 @@
 shader = ExtResource("1_vea10")
 shader_parameter/center = Vector2(0.5, 0.5)
 shader_parameter/force = 1.0
+shader_parameter/shake_intensity = 0.0
 
 [node name="GameWorldViewport" type="SubViewportContainer"]
 material = SubResource("ShaderMaterial_4oxqw")
