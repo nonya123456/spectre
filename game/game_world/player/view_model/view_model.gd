@@ -9,10 +9,10 @@ extends Camera3D
 
 
 func _process(delta: float) -> void:
-    hand.position.x = lerp(hand.position.x, 0.0, delta * hand_speed)
-    hand.position.y = lerp(hand.position.y, 0.0, delta * hand_speed)
+	hand.position.x = lerp(hand.position.x, 0.0, delta * hand_speed)
+	hand.position.y = lerp(hand.position.y, 0.0, delta * hand_speed)
 
 
 func sway(sway_amount: Vector2) -> void:
-    hand.position.x = clamp(hand.position.x + sway_amount.x, -max_sway_x, max_sway_x)
-    hand.position.y = clamp(hand.position.y + sway_amount.y, -max_sway_y, max_sway_y)
+	hand.position.x = clamp(hand.position.x + sway_amount.x, -max_sway_x, max_sway_x)
+	hand.position.y = clamp(hand.position.y + sway_amount.y, -max_sway_y, max_sway_y)

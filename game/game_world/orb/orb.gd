@@ -6,4 +6,4 @@ extends Node3D
 
 
 func _process(delta: float) -> void:
-    model.rotate(Vector3(1, 1, 1).normalized(), delta * speed)
+	model.rotate(Vector3(1, 1, 1).normalized(), delta * speed)
