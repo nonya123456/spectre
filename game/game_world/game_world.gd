@@ -1,6 +1,7 @@
 extends Node
 
 @onready var spectre: Spectre = $Spectre
+@onready var player: Node3D = $Player
 
 @export var rng_seed: int = 0
 @export var width: int = 10
@@ -79,6 +80,8 @@ func _ready() -> void:
 				var pos_z: float = (j + 1) * (node_size + wall_thickness) + wall_thickness / 2 - map_width / 2
 				corner.position = Vector3(pos_x, node_height / 2, pos_z)
 				add_child(corner)
+	
+	spectre.target = player
 
 
 func _on_player_flashlight_toggled(is_light_visible: bool) -> void:
