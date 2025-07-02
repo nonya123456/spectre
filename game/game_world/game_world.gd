@@ -4,7 +4,7 @@ signal haunt_entered
 signal haunt_exited
 
 @onready var spectre: Spectre = $Spectre
-@onready var player: Node3D = $Player
+@onready var player: Player = $Player
 
 @export var rng_seed: int = 0
 @export var width: int = 10
@@ -91,9 +91,11 @@ func _on_player_flashlight_toggled(is_light_visible: bool) -> void:
 	spectre.on_player_flashlight_toggled(is_light_visible)
 
 
-func _on_spectre_target_found() -> void:
+func _on_spectre_target_found(marker_position: Vector3) -> void:
 	haunt_entered.emit()
+	player.start_forced_look(marker_position)
 
 
 func _on_spectre_target_lost() -> void:
 	haunt_exited.emit()
+	player.stop_forced_look()

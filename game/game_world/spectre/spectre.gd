@@ -2,7 +2,7 @@ class_name Spectre
 
 extends Node3D
 
-signal target_found
+signal target_found(marker_position: Vector3)
 signal target_lost
 
 @onready var spectre_model: SpectreModel = $SpectreModel
@@ -29,7 +29,7 @@ func _physics_process(_delta: float) -> void:
 
 	if result["collider"] == target and !target_in_sight:
 		target_in_sight = true
-		target_found.emit()
+		target_found.emit(marker.global_position)
 
 	if result["collider"] != target and target_in_sight:
 		target_in_sight = false

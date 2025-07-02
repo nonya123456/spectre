@@ -1,3 +1,5 @@
+class_name Player
+
 extends CharacterBody3D
 
 signal flashlight_toggled(is_light_visible: bool)
@@ -11,6 +13,10 @@ signal flashlight_toggled(is_light_visible: bool)
 @export var sway_strength: float = 0.0002
 var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
+
+var is_forced_look: bool = false
+var forced_look_position: Vector3
+var forced_look_speed: float = 8.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -44,7 +50,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	_handle_look()
+	_handle_look(delta)
 
 	_update_view_model()
 
@@ -57,18 +63,40 @@ func _process(_delta: float) -> void:
 		flashlight_toggled.emit(spot_light.visible)
 
 
-func _handle_look() -> void:
-	pitch -= look_input.y * sensitivity
-	pitch = clamp(pitch, -89, 89)
+func _handle_look(delta: float) -> void:
+	if is_forced_look:
+		var disp: Vector3 = forced_look_position - camera.global_position
+		var disp_xz: Vector2 = Vector2(disp.x, disp.z)
+		pitch = rad_to_deg(atan2(disp.y, disp_xz.length()))
+	else:
+		pitch -= look_input.y * sensitivity
+		pitch = clamp(pitch, -89, 89)
+
 	camera.rotation_degrees.x = pitch
 	spot_light.rotation_degrees.x = pitch
 
-	var horizontal: float = - look_input.x * sensitivity
-	var horizontal_rad: float = deg_to_rad(horizontal)
-	rotate_y(horizontal_rad)
+	if is_forced_look:
+		var direction: Vector3 = forced_look_position - global_position
+		var angle: float = atan2(direction.x, direction.z) - PI
+		rotation.y = rotate_toward(rotation.y, angle, delta * forced_look_speed)
+	else:
+		var horizontal: float = - look_input.x * sensitivity
+		var horizontal_rad: float = deg_to_rad(horizontal)
+		rotate_y(horizontal_rad)
 
-
+	
 func _update_view_model() -> void:
 	view_model.global_position = camera.global_position
 	view_model.global_rotation_degrees = camera.global_rotation_degrees
-	view_model.sway(Vector2(-look_input.x * sway_strength, look_input.y * sway_strength))
+	if !is_forced_look:
+		view_model.sway(Vector2(-look_input.x * sway_strength, look_input.y * sway_strength))
+
+
+func start_forced_look(marker_position: Vector3) -> void:
+	is_forced_look = true
+	forced_look_position = marker_position
+
+
+func stop_forced_look() -> void:
+	is_forced_look = false
+	forced_look_position = Vector3.ZERO
