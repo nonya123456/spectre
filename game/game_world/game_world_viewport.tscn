@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4oxqw"]
 shader = ExtResource("1_vea10")
 shader_parameter/center = Vector2(0.5, 0.5)
-shader_parameter/force = 1.0
+shader_parameter/zoom_factor = 1.0
 shader_parameter/shake_intensity = 0.0
 
 [node name="GameWorldViewport" type="SubViewportContainer"]
@@ -25,5 +25,5 @@ render_target_update_mode = 4
 
 [node name="GameWorld" parent="SubViewport" instance=ExtResource("1_resgi")]
 
-[connection signal="haunt_entered" from="SubViewport/GameWorld" to="." method="_on_game_world_haunt_entered"]
-[connection signal="haunt_exited" from="SubViewport/GameWorld" to="." method="_on_game_world_haunt_exited"]
+[connection signal="forced_look_entered" from="SubViewport/GameWorld" to="." method="_on_game_world_forced_look_entered"]
+[connection signal="forced_look_exited" from="SubViewport/GameWorld" to="." method="_on_game_world_forced_look_exited"]

@@ -1,7 +1,7 @@
 extends Node
 
-signal haunt_entered
-signal haunt_exited
+signal forced_look_entered
+signal forced_look_exited
 
 @onready var spectre: Spectre = $Spectre
 @onready var player: Player = $Player
@@ -95,12 +95,12 @@ func _on_player_flashlight_toggled(is_light_visible: bool) -> void:
 
 
 func _on_spectre_target_found(marker_position: Vector3) -> void:
-	haunt_entered.emit()
+	forced_look_entered.emit()
 	player.start_forced_look(marker_position)
 
 
 func _on_spectre_target_lost() -> void:
-	haunt_exited.emit()
+	forced_look_exited.emit()
 	player.stop_forced_look()
 
 
