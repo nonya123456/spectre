@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=5 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world/game_world.gd" id="1_3xdgc"]
 [ext_resource type="PackedScene" uid="uid://bolwbkdcbqdjo" path="res://game/game_world/spectre/spectre.tscn" id="2_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/game_world/player/player.tscn" id="3_8hsaj"]
-[ext_resource type="PackedScene" uid="uid://dh0337re0kepi" path="res://game/game_world/orb/orb.tscn" id="4_msi22"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
 background_mode = 2
@@ -21,9 +20,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19653, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("3_8hsaj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.61576, 0)
-
-[node name="Orb" parent="." instance=ExtResource("4_msi22")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50319, 1.28872, 2.03281)
 
 [connection signal="target_found" from="Spectre" to="." method="_on_spectre_target_found"]
 [connection signal="target_lost" from="Spectre" to="." method="_on_spectre_target_lost"]

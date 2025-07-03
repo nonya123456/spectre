@@ -55,3 +55,4 @@ toggle_flashlight={
 
 3d_physics/layer_1="default"
 3d_physics/layer_2="view_model"
+3d_physics/layer_3="player"

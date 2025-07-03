@@ -13,6 +13,7 @@ signal haunt_exited
 @export var node_height: float = 6.0
 @export var wall_thickness: float = 0.5
 @export var block_scene: PackedScene = preload("res://game/game_world/block/block.tscn")
+@export var orb_scene: PackedScene = preload("res://game/game_world/orb/orb.tscn")
 
 
 func _ready() -> void:
@@ -86,6 +87,8 @@ func _ready() -> void:
 	
 	spectre.target = player
 
+	_spawn_orb(Vector3(-1.5, 1.2, 2))
+
 
 func _on_player_flashlight_toggled(is_light_visible: bool) -> void:
 	spectre.on_player_flashlight_toggled(is_light_visible)
@@ -99,3 +102,14 @@ func _on_spectre_target_found(marker_position: Vector3) -> void:
 func _on_spectre_target_lost() -> void:
 	haunt_exited.emit()
 	player.stop_forced_look()
+
+
+func _spawn_orb(position: Vector3) -> void:
+	var orb: Orb = orb_scene.instantiate()
+	orb.position = position
+	orb.collected.connect(_on_orb_collected)
+	add_child(orb)
+
+
+func _on_orb_collected() -> void:
+	print("collect")
