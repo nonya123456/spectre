@@ -2,8 +2,6 @@ class_name Player
 
 extends CharacterBody3D
 
-signal flashlight_toggled(is_light_visible: bool)
-
 @onready var camera: Camera3D = $Camera3D
 @onready var view_model: ViewModel = $Camera3D/SubViewportContainer/SubViewport/ViewModel
 @onready var spot_light: SpotLight3D = $SpotLight3D
@@ -58,9 +56,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("toggle_flashlight"):
-		spot_light.visible = !spot_light.visible
-		flashlight_toggled.emit(spot_light.visible)
+	if is_forced_look:
+		var flicker = abs(sin(Time.get_ticks_msec() * 0.02)) > 0.3
+		spot_light.visible = flicker
+	else:
+		spot_light.visible = true
 
 
 func _handle_look(delta: float) -> void:

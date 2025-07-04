@@ -92,10 +92,6 @@ func _ready() -> void:
 	_spawn_orb(Vector3(-1.5, 1.2, 2))
 
 
-func _on_player_flashlight_toggled(is_light_visible: bool) -> void:
-	spectre.on_player_flashlight_toggled(is_light_visible)
-
-
 func _on_spectre_target_found(marker_position: Vector3) -> void:
 	forced_look_entered.emit()
 	player.start_forced_look(marker_position)

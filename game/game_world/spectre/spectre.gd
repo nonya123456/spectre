@@ -8,7 +8,6 @@ signal target_lost
 var target: Node3D = null
 var target_in_sight: bool = false
 
-@onready var spectre_model: SpectreModel = $SpectreModel
 @onready var marker: Marker3D = $Marker3D
 
 @export var sight_range: float = 7.5
@@ -40,10 +39,3 @@ func _physics_process(_delta: float) -> void:
 	if (!result.has("collider") or result["collider"] != target) and target_in_sight:
 		target_in_sight = false
 		target_lost.emit()
-
-
-func on_player_flashlight_toggled(is_light_visible: bool) -> void:
-	if is_light_visible:
-		spectre_model.set_emission_strength(2.0)
-	else:
-		spectre_model.set_emission_strength(0.0)
