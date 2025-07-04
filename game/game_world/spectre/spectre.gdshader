@@ -5,7 +5,7 @@ uniform sampler2D albedo_texture : source_color;
 uniform sampler2D emission_texture : source_color;
 
 uniform vec4 emission_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform float emission_strength : hint_range(0.0, 10.0, 0.01) = 1.0;
+uniform float emission_strength : hint_range(0.0, 10.0, 0.01) = 2.0;
 
 uniform float shake_power = 0.005;
 uniform float shake_rate : hint_range(0.0, 1.0) = 0;
