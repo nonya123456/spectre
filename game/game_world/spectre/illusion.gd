@@ -4,6 +4,9 @@ extends Node3D
 
 var target: Node3D = null
 
+var found: bool
+var found_timer: float = 1.0
+
 @onready var marker: Marker3D = $Marker3D
 @onready var spectre_model: SpectreModel = $SpectreModel
 
@@ -21,6 +24,9 @@ func _physics_process(_delta: float) -> void:
 	var direction: Vector3 = disp.normalized()
 	look_at(global_position - direction, Vector3.UP)
 
+	if found:
+		return
+
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 
 	var raycast_direction: Vector3 = (target.global_position - marker.global_position).normalized()
@@ -30,6 +36,19 @@ func _physics_process(_delta: float) -> void:
 	var result = space_state.intersect_ray(query)
 
 	if result.has("collider") and result["collider"] == target:
+		handle_target_entered_sight()
+
+
+func _process(delta: float) -> void:
+	if !found:
+		return
+	
+	found_timer -= delta
+	if found_timer < 0:
 		spectre_model.remove_material() # HACK: fix material is null error
-		print("illusion found")
 		queue_free()
+
+
+func handle_target_entered_sight() -> void:
+	found = true
+	spectre_model.set_shake(true)
