@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn47sex35ejqf"]
+
+[ext_resource type="Script" uid="uid://b3807g2qfe4qr" path="res://game/game_world/spectre/illusion.gd" id="1_rr4bo"]
+[ext_resource type="PackedScene" uid="uid://cekqmi4smdlv1" path="res://game/game_world/spectre/spectre_model.tscn" id="2_0rih3"]
+
+[node name="Illusion" type="Node3D"]
+script = ExtResource("1_rr4bo")
+collision_mask = 5
+
+[node name="SpectreModel" parent="." instance=ExtResource("2_0rih3")]
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)

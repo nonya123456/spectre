@@ -1,15 +1,11 @@
-class_name Spectre
+class_name Illusion
 
 extends Node3D
 
-signal target_found(marker_position: Vector3)
-signal target_lost
-
 var target: Node3D = null
-var target_in_sight: bool = false
 
-@onready var spectre_model: SpectreModel = $SpectreModel
 @onready var marker: Marker3D = $Marker3D
+@onready var spectre_model: SpectreModel = $SpectreModel
 
 @export var sight_range: float = 7.5
 @export_flags_3d_physics var collision_mask: int
@@ -33,17 +29,7 @@ func _physics_process(_delta: float) -> void:
 
 	var result = space_state.intersect_ray(query)
 
-	if (result.has("collider") and result["collider"] == target) and !target_in_sight:
-		target_in_sight = true
-		target_found.emit(marker.global_position)
-
-	if (!result.has("collider") or result["collider"] != target) and target_in_sight:
-		target_in_sight = false
-		target_lost.emit()
-
-
-func on_player_flashlight_toggled(is_light_visible: bool) -> void:
-	if is_light_visible:
-		spectre_model.set_emission_strength(2.0)
-	else:
-		spectre_model.set_emission_strength(0.0)
+	if result.has("collider") and result["collider"] == target:
+		spectre_model.remove_material() # HACK: fix material is null error
+		print("illusion found")
+		queue_free()

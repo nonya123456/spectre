@@ -4,6 +4,7 @@ signal forced_look_entered
 signal forced_look_exited
 
 @onready var spectre: Spectre = $Spectre
+@onready var illusion: Illusion = $Illusion
 @onready var player: Player = $Player
 
 @export var rng_seed: int = 0
@@ -86,6 +87,7 @@ func _ready() -> void:
 				add_child(corner)
 	
 	spectre.target = player
+	illusion.target = player
 
 	_spawn_orb(Vector3(-1.5, 1.2, 2))
 

@@ -7,3 +7,8 @@ extends Node3D
 
 func set_emission_strength(strength: float) -> void:
 	mesh.get_surface_override_material(0).set_shader_parameter("emission_strength", strength)
+
+
+func remove_material() -> void:
+	for i in range(0, mesh.get_surface_override_material_count()):
+		mesh.set_surface_override_material(i, null)
