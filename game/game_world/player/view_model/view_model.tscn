@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c0xfp88mk5t7l"]
 
-[ext_resource type="PackedScene" uid="uid://cjopx8slp5li1" path="res://game/game_world/player/flashlight/flashlight.tscn" id="1_42fkt"]
+[ext_resource type="PackedScene" uid="uid://cjopx8slp5li1" path="res://game/game_world/player/view_model/flashlight/flashlight.tscn" id="1_42fkt"]
 [ext_resource type="Script" uid="uid://duo2x1isqxe5j" path="res://game/game_world/player/view_model/view_model.gd" id="1_60rcp"]
 
 [node name="ViewModel" type="Camera3D"]

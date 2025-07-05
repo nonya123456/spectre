@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cjopx8slp5li1"]
 
-[ext_resource type="PackedScene" uid="uid://b454mspgenw01" path="res://game/game_world/player/flashlight/Flashlight.fbx" id="1_ai56p"]
+[ext_resource type="PackedScene" uid="uid://b454mspgenw01" path="res://game/game_world/player/view_model/flashlight/Flashlight.fbx" id="1_ai56p"]
 
 [node name="Flashlight" instance=ExtResource("1_ai56p")]
 
