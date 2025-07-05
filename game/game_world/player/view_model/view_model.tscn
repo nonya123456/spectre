@@ -3,9 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cjopx8slp5li1" path="res://game/game_world/player/view_model/flashlight/flashlight.tscn" id="1_42fkt"]
 [ext_resource type="Script" uid="uid://duo2x1isqxe5j" path="res://game/game_world/player/view_model/view_model.gd" id="1_60rcp"]
 
-[node name="ViewModel" type="Camera3D"]
-cull_mask = 2
-fov = 60.0
+[node name="ViewModel" type="Node3D"]
 script = ExtResource("1_60rcp")
 
 [node name="Hand" type="Node3D" parent="."]

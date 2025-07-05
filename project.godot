@@ -48,6 +48,7 @@ move_right={
 
 [layer_names]
 
+3d_render/layer_2="view_model"
 3d_physics/layer_1="default"
 3d_physics/layer_2="view_model"
 3d_physics/layer_3="player"

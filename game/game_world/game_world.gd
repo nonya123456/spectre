@@ -1,11 +1,11 @@
 extends Node
 
-signal forced_look_entered
-signal forced_look_exited
-
 @onready var spectre: Spectre = $Spectre
 @onready var illusion: Illusion = $Illusion
 @onready var player: Player = $Player
+@onready var viewport: SubViewportContainer = $CanvasLayer/SubViewportContainer
+@onready var player_cam: Camera3D = $CanvasLayer/SubViewportContainer/SubViewport/PlayerViewport/SubViewport/Camera3D
+@onready var view_model_cam: Camera3D = $CanvasLayer/SubViewportContainer/SubViewport/ViewModelViewport/SubViewport/Camera3D
 
 @export var rng_seed: int = 0
 @export var width: int = 10
@@ -15,6 +15,10 @@ signal forced_look_exited
 @export var wall_thickness: float = 0.5
 @export var block_scene: PackedScene = preload("res://game/game_world/block/block.tscn")
 @export var orb_scene: PackedScene = preload("res://game/game_world/orb/orb.tscn")
+
+var zoom_factor: float = 1.0
+var zoom_factor_change_speed: float = 5.0
+var forced_look: bool = false
 
 
 func _ready() -> void:
@@ -92,13 +96,36 @@ func _ready() -> void:
 	_spawn_orb(Vector3(-1.5, 1.2, 2))
 
 
+func _process(delta: float) -> void:
+	_update_camera()
+	_update_effects(delta)
+
+
+func _update_camera() -> void:
+	var pos: Vector3 = player.get_marker_position()
+	var rot: Vector3 = player.get_marker_rotation()
+	player_cam.global_position = pos
+	player_cam.global_rotation = rot
+	view_model_cam.global_position = pos
+	view_model_cam.global_rotation = rot
+
+
+func _update_effects(delta: float) -> void:
+	var target_force: float = 1.5 if forced_look else 1.0
+	zoom_factor = move_toward(zoom_factor, target_force, delta * zoom_factor_change_speed)
+	viewport.material.set_shader_parameter("zoom_factor", zoom_factor)
+
+	var shake_intensity: float = 0.01 if forced_look else 0.0
+	viewport.material.set_shader_parameter("shake_intensity", shake_intensity)
+
+
 func _on_spectre_target_found(marker_position: Vector3) -> void:
-	forced_look_entered.emit()
+	forced_look = true
 	player.start_forced_look(marker_position)
 
 
 func _on_spectre_target_lost() -> void:
-	forced_look_exited.emit()
+	forced_look = false
 	player.stop_forced_look()
 
 

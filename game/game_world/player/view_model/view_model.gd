@@ -1,6 +1,6 @@
 class_name ViewModel
 
-extends Camera3D
+extends Node3D
 
 @onready var hand: Node3D = $Hand
 @export var hand_speed: float = 5.0

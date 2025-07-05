@@ -1,14 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=8 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world/game_world.gd" id="1_3xdgc"]
 [ext_resource type="PackedScene" uid="uid://bolwbkdcbqdjo" path="res://game/game_world/spectre/spectre.tscn" id="2_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/game_world/player/player.tscn" id="3_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://cn47sex35ejqf" path="res://game/game_world/spectre/illusion.tscn" id="4_e7f4c"]
+[ext_resource type="Shader" uid="uid://b7bcoud8wrmd1" path="res://game/game_world/game_world.gdshader" id="5_e5oes"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
 background_mode = 2
 glow_enabled = true
 glow_bloom = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3qnfg"]
+shader = ExtResource("5_e5oes")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/zoom_factor = 1.0
+shader_parameter/shake_intensity = 0.0
 
 [node name="GameWorld" type="Node"]
 script = ExtResource("1_3xdgc")
@@ -23,7 +30,61 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19653, 0, 4.93551)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28602, 0, -7.90523)
 
 [node name="Player" parent="." instance=ExtResource("3_8hsaj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.61576, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_3qnfg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="PlayerViewport" type="SubViewportContainer" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer/SubViewport/PlayerViewport"]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport/PlayerViewport/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+cull_mask = 1048573
+fov = 60.0
+
+[node name="ViewModelViewport" type="SubViewportContainer" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer/SubViewport/ViewModelViewport"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport/ViewModelViewport/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+cull_mask = 2
+fov = 60.0
 
 [connection signal="target_found" from="Spectre" to="." method="_on_spectre_target_found"]
 [connection signal="target_lost" from="Spectre" to="." method="_on_spectre_target_lost"]
