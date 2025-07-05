@@ -1,8 +1,8 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://r10t7q4qmqlr"]
 
 [ext_resource type="Shader" uid="uid://0w1oc3m8kur8" path="res://game/game_world/spectre/spectre.gdshader" id="1_56lqv"]
-[ext_resource type="Texture2D" uid="uid://bxx5isperlb30" path="res://game/game_world/spectre/Spectre Base Color.png" id="2_4j8ig"]
-[ext_resource type="Texture2D" uid="uid://dpvdlxthrkquo" path="res://game/game_world/spectre/Spectre Emission Color.png" id="3_6rel1"]
+[ext_resource type="Texture2D" uid="uid://bxx5isperlb30" path="res://game/game_world/spectre/spectre_base.png" id="2_4j8ig"]
+[ext_resource type="Texture2D" uid="uid://dpvdlxthrkquo" path="res://game/game_world/spectre/spectre_emission.png" id="3_6rel1"]
 
 [resource]
 resource_local_to_scene = true

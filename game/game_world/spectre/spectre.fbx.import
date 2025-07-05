@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dqa74fp4ipu71"
-path="res://.godot/imported/Spectre.fbx-fa5d0990904b70056f3a2f3f499edb98.scn"
+uid="uid://c7jies4fjdjul"
+path="res://.godot/imported/spectre.fbx-82fc5869937a996a8f4b5266475ebd79.scn"
 
 [deps]
 
-source_file="res://game/game_world/spectre/Spectre.fbx"
-dest_files=["res://.godot/imported/Spectre.fbx-fa5d0990904b70056f3a2f3f499edb98.scn"]
+source_file="res://game/game_world/spectre/spectre.fbx"
+dest_files=["res://.godot/imported/spectre.fbx-82fc5869937a996a8f4b5266475ebd79.scn"]
 
 [params]
 
