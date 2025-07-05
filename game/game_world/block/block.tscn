@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1mh2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bux31"]
-load_path = "res://.godot/imported/block_texture.png-9b70e524f6b54ea0a27a0fd9797a4bdd.s3tc.ctex"
+load_path = "res://.godot/imported/block_texture.png-dbf6202ead9f967d7e618a63354e8977.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5x6n"]
 albedo_texture = ExtResource("2_8df8g")
