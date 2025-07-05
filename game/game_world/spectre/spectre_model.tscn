@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cekqmi4smdlv1"]
 
-[ext_resource type="PackedScene" uid="uid://dqa74fp4ipu71" path="res://game/game_world/spectre/Spectre.fbx" id="1_exw2y"]
+[ext_resource type="PackedScene" uid="uid://c7jies4fjdjul" path="res://game/game_world/spectre/spectre.fbx" id="1_exw2y"]
 [ext_resource type="Script" uid="uid://dh2yo2wvmguwy" path="res://game/game_world/spectre/spectre_model.gd" id="2_8mnpb"]
 [ext_resource type="Material" uid="uid://r10t7q4qmqlr" path="res://game/game_world/spectre/spectre_material.tres" id="2_wdfu8"]
 
