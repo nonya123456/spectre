@@ -23,6 +23,8 @@ script = ExtResource("1_3xdgc")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_iexac")
 
+[node name="Map" type="Node3D" parent="."]
+
 [node name="Spectre" parent="." instance=ExtResource("2_8hsaj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19653, 0, 4.93551)
 
