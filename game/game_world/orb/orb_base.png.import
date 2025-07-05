@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccfjna47c7ff3"
-path.s3tc="res://.godot/imported/Orb Emission Color.png-c522c46c0dc25a6bbc9db93db6f95cd6.s3tc.ctex"
+uid="uid://cds21ox2jjsc5"
+path.s3tc="res://.godot/imported/orb_base.png-868776d4999d8becd60cc95ffd6f907f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://game/game_world/orb/Orb Emission Color.png"
-dest_files=["res://.godot/imported/Orb Emission Color.png-c522c46c0dc25a6bbc9db93db6f95cd6.s3tc.ctex"]
+source_file="res://game/game_world/orb/orb_base.png"
+dest_files=["res://.godot/imported/orb_base.png-868776d4999d8becd60cc95ffd6f907f.s3tc.ctex"]
 
 [params]
 

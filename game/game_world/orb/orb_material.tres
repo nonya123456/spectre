@@ -1,8 +1,8 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://caaaiqq056clt"]
 
 [ext_resource type="Shader" uid="uid://07anrn3d6cp7" path="res://game/game_world/orb/orb.gdshader" id="1_ls22o"]
-[ext_resource type="Texture2D" uid="uid://cds21ox2jjsc5" path="res://game/game_world/orb/Orb Base Color.png" id="2_p5b67"]
-[ext_resource type="Texture2D" uid="uid://ccfjna47c7ff3" path="res://game/game_world/orb/Orb Emission Color.png" id="3_i1qtw"]
+[ext_resource type="Texture2D" uid="uid://cds21ox2jjsc5" path="res://game/game_world/orb/orb_base.png" id="2_p5b67"]
+[ext_resource type="Texture2D" uid="uid://ccfjna47c7ff3" path="res://game/game_world/orb/orb_emission.png" id="3_i1qtw"]
 
 [resource]
 render_priority = 0

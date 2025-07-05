@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://v107f0icy2gt"
-path="res://.godot/imported/Orb.fbx-0d60924c29a541e72e63b80b66517faf.scn"
+path="res://.godot/imported/orb.fbx-7ef75e0616d72ff8d8262efb23f135a7.scn"
 
 [deps]
 
-source_file="res://game/game_world/orb/Orb.fbx"
-dest_files=["res://.godot/imported/Orb.fbx-0d60924c29a541e72e63b80b66517faf.scn"]
+source_file="res://game/game_world/orb/orb.fbx"
+dest_files=["res://.godot/imported/orb.fbx-7ef75e0616d72ff8d8262efb23f135a7.scn"]
 
 [params]
 
