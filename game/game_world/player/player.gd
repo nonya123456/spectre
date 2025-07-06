@@ -2,6 +2,9 @@ class_name Player
 
 extends CharacterBody3D
 
+signal died
+
+@export var max_health: int = 10
 @export var move_speed: float = 4.0
 @export var sensitivity: float = 0.2
 @export var sway_strength: float = 0.0002
@@ -12,10 +15,14 @@ var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
 var is_forced_look: bool = false
 var forced_look_position: Vector3
+var attack_time: float
+var attack_timer: float
 
+@onready var health = max_health
 @onready var marker: Marker3D = $Marker3D
 @onready var view_model: ViewModel = $Marker3D/ViewModel
 @onready var spot_light: SpotLight3D = $Marker3D/SpotLight3D
+@onready var start_spot_range = spot_light.spot_range
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -54,12 +61,22 @@ func _physics_process(delta: float) -> void:
 	look_input = Vector2.ZERO
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if is_forced_look:
 		var flicker = abs(sin(Time.get_ticks_msec() * 0.02)) > 0.3
 		spot_light.visible = flicker
 	else:
 		spot_light.visible = true
+	
+	if is_forced_look:
+		attack_timer -= delta
+		if attack_timer < 0:
+			health -= 1
+			spot_light.spot_range = max(3.0, start_spot_range * float(health) / float(max_health))
+			attack_timer = attack_time
+
+			if health <= 0:
+				died.emit()
 
 
 func _handle_look(delta: float) -> void:
@@ -86,9 +103,11 @@ func _handle_look(delta: float) -> void:
 		view_model.sway(Vector2(-look_input.x * sway_strength, look_input.y * sway_strength))
 
 
-func start_forced_look(marker_position: Vector3) -> void:
+func start_forced_look(marker_position: Vector3, time: float) -> void:
 	is_forced_look = true
 	forced_look_position = marker_position
+	attack_time = time
+	attack_timer = time
 
 
 func stop_forced_look() -> void:

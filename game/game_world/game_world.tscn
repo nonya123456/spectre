@@ -87,3 +87,4 @@ fov = 60.0
 [connection signal="inactive" from="Spectre" to="." method="_on_spectre_inactive"]
 [connection signal="target_found" from="Spectre" to="." method="_on_spectre_target_found"]
 [connection signal="target_lost" from="Spectre" to="." method="_on_spectre_target_lost"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]

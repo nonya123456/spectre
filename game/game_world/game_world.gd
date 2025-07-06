@@ -144,7 +144,7 @@ func _update_effects(delta: float) -> void:
 
 func _on_spectre_target_found(marker_position: Vector3) -> void:
 	forced_look = true
-	player.start_forced_look(marker_position)
+	player.start_forced_look(marker_position, 1.0)
 
 
 func _on_spectre_target_lost() -> void:
@@ -237,3 +237,7 @@ func _on_spectre_inactive() -> void:
 	spectre.activate()
 
 	occupied_cells[index] = null
+
+
+func _on_player_died() -> void:
+	print("died")
