@@ -12,7 +12,7 @@ var found_timer: float = 0.25
 @onready var marker: Marker3D = $Marker3D
 @onready var spectre_model: SpectreModel = $SpectreModel
 
-@export var sight_range: float = 6.0
+@export var sight_range: float = 4.0
 @export_flags_3d_physics var collision_mask: int
 
 

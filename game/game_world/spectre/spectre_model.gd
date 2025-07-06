@@ -9,6 +9,10 @@ func set_emission_strength(strength: float) -> void:
 	mesh.get_surface_override_material(0).set_shader_parameter("emission_strength", strength)
 
 
+func set_emission_color(color: Color) -> void:
+	mesh.get_surface_override_material(0).set_shader_parameter("emission_color", color)
+
+
 func set_shake(shake: bool) -> void:
 	var shake_rate: float = 1.0 if shake else 0.0
 	mesh.get_surface_override_material(0).set_shader_parameter("shake_rate", shake_rate)
