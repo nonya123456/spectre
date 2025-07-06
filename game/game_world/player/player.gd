@@ -2,15 +2,16 @@ class_name Player
 
 extends CharacterBody3D
 
-@export var move_speed: float = 5.0
+@export var move_speed: float = 4.0
 @export var sensitivity: float = 0.2
 @export var sway_strength: float = 0.0002
+@export var forced_look_rotate_speed: float = 8.0
+@export var forced_look_move_speed: float = 2.5
 
 var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
 var is_forced_look: bool = false
 var forced_look_position: Vector3
-var forced_look_speed: float = 8.0
 
 @onready var marker: Marker3D = $Marker3D
 @onready var view_model: ViewModel = $Marker3D/ViewModel
@@ -40,7 +41,7 @@ func _physics_process(delta: float) -> void:
 	input_dir = input_dir.normalized()
 
 	var move_dir: Vector3 = global_basis.z * input_dir.z + global_basis.x * input_dir.x
-	move_dir = move_dir.normalized() * move_speed
+	move_dir = move_dir.normalized() * (move_speed if !is_forced_look else forced_look_move_speed)
 
 	velocity.x = move_dir.x
 	velocity.z = move_dir.z
@@ -75,7 +76,7 @@ func _handle_look(delta: float) -> void:
 	if is_forced_look:
 		var direction: Vector3 = forced_look_position - global_position
 		var angle: float = atan2(direction.x, direction.z) - PI
-		rotation.y = rotate_toward(rotation.y, angle, delta * forced_look_speed)
+		rotation.y = rotate_toward(rotation.y, angle, delta * forced_look_rotate_speed)
 	else:
 		var horizontal: float = - look_input.x * sensitivity
 		var horizontal_rad: float = deg_to_rad(horizontal)
