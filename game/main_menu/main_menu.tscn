@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://42wwhoaj0omt"]
+
+[ext_resource type="Texture2D" uid="uid://jeuteeho72mk" path="res://game/main_menu/background.png" id="1_f1bok"]
+[ext_resource type="Script" uid="uid://bs8fqto0gtb8h" path="res://game/main_menu/main_menu.gd" id="1_rlutr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sp5am"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rlutr"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rlneu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f1bok"]
+font_size = 120
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_rlutr")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_f1bok")
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+offset_left = 340.0
+offset_top = 600.0
+offset_right = 940.0
+offset_bottom = 900.0
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 54
+theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
+text = "Play
+"
+flat = true
+alignment = 0
+
+[node name="CreditsButton" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 54
+theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
+text = "Credits
+"
+flat = true
+alignment = 0
+
+[node name="QuitButton" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 54
+theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
+text = "Quit
+"
+flat = true
+alignment = 0
+
+[node name="Title" type="Label" parent="."]
+offset_left = 270.0
+offset_top = 90.0
+offset_right = 990.0
+offset_bottom = 390.0
+text = "the spectre"
+label_settings = SubResource("LabelSettings_f1bok")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Buttons/QuitButton" to="." method="_on_quit_button_pressed"]

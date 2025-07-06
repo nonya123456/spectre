@@ -1,12 +1,17 @@
 extends Node
 
+@export var main_menu_scene: PackedScene = preload("res://game/main_menu/main_menu.tscn")
+@export var game_world_scene: PackedScene = preload("res://game/game_world/game_world.tscn")
 
-func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+@onready var current_scene: Node = $MainMenu
 
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	elif what == NOTIFICATION_APPLICATION_FOCUS_OUT:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+func _on_main_menu_play_button_pressed() -> void:
+	var game_world: Node = game_world_scene.instantiate()
+	add_child(game_world)
+	current_scene.queue_free()
+	current_scene = game_world
+
+
+func _on_main_menu_quit_button_pressed() -> void:
+	get_tree().quit()

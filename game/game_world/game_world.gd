@@ -30,6 +30,8 @@ var occupied_cells: Dictionary = {}
 
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 	var maze_graph: MazeGraph = MazeGenerator.generate_maze(rng_seed, width, height)
 	var map_height: float = node_size * height + wall_thickness * (height + 1)
 	var map_width: float = node_size * width + wall_thickness * (width + 1)
@@ -266,3 +268,10 @@ func _on_spectre_inactive() -> void:
 
 func _on_player_died() -> void:
 	_show_text("YOU DIED")
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	elif what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
