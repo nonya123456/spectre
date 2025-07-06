@@ -16,6 +16,9 @@ extends Node
 @export var wall_thickness: float = 0.5
 @export var block_scene: PackedScene = preload("res://game/game_world/block/block.tscn")
 @export var orb_scene: PackedScene = preload("res://game/game_world/orb/orb.tscn")
+@export var orb_count: int = 10
+
+var current_orb_count: int
 
 var zoom_factor: float = 1.0
 var zoom_factor_change_speed: float = 5.0
@@ -94,7 +97,36 @@ func _ready() -> void:
 	spectre.target = player
 	illusion.target = player
 
-	_spawn_orb(Vector3(-1.5, 1.2, 2))
+	var random_numbers: PackedInt32Array = _get_random_numbers(orb_count, 0, width * height - 1)
+	for index in random_numbers:
+		var i: int = int(index / floor(width))
+		var j: int = index % height
+		var pos_x: float = (i + 1) * (node_size + wall_thickness) - node_size / 2 - map_height / 2
+		var pos_z: float = (j + 1) * (node_size + wall_thickness) - node_size / 2 - map_width / 2
+		_spawn_orb(Vector3(pos_x, 1.2, pos_z))
+		current_orb_count += 1
+
+
+func _get_random_numbers(count: int, min_val: int, max_val: int) -> PackedInt32Array:
+	if count <= 0 or min_val > max_val:
+		return PackedInt32Array()
+
+	var numbers := PackedInt32Array()
+	var possible_numbers := PackedInt32Array()
+	for i in range(min_val, max_val + 1):
+		possible_numbers.append(i)
+
+	randomize()
+
+	for i in range(count):
+		if possible_numbers.is_empty():
+			break
+
+		var random_index = randi() % possible_numbers.size()
+		numbers.append(possible_numbers[random_index])
+		possible_numbers.remove_at(random_index)
+
+	return numbers
 
 
 func _process(delta: float) -> void:
@@ -138,4 +170,6 @@ func _spawn_orb(position: Vector3) -> void:
 
 
 func _on_orb_collected() -> void:
-	print("collect")
+	current_orb_count -= 1
+	if current_orb_count <= 0:
+		print("player wins")
