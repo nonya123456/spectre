@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=9 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world/game_world.gd" id="1_3xdgc"]
 [ext_resource type="PackedScene" uid="uid://bolwbkdcbqdjo" path="res://game/game_world/spectre/spectre.tscn" id="2_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/game_world/player/player.tscn" id="3_8hsaj"]
+[ext_resource type="FontFile" uid="uid://27yf5xbp52t5" path="res://game/game_world/FiraSans-Bold.ttf" id="4_e5oes"]
 [ext_resource type="Shader" uid="uid://b7bcoud8wrmd1" path="res://game/game_world/game_world.gdshader" id="5_e5oes"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
@@ -15,6 +16,11 @@ shader = ExtResource("5_e5oes")
 shader_parameter/center = Vector2(0.5, 0.5)
 shader_parameter/zoom_factor = 1.0
 shader_parameter/shake_intensity = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_3qnfg"]
+font = ExtResource("4_e5oes")
+font_size = 256
+font_color = Color(0.784314, 0.784314, 0.784314, 0.392157)
 
 [node name="GameWorld" type="Node"]
 script = ExtResource("1_3xdgc")
@@ -83,6 +89,22 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 cull_mask = 2
 fov = 60.0
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -250.0
+offset_right = 960.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_3qnfg")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="inactive" from="Spectre" to="." method="_on_spectre_inactive"]
 [connection signal="target_found" from="Spectre" to="." method="_on_spectre_target_found"]

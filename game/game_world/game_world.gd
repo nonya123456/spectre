@@ -6,6 +6,7 @@ extends Node
 @onready var viewport: SubViewportContainer = $CanvasLayer/SubViewportContainer
 @onready var player_cam: Camera3D = $CanvasLayer/SubViewportContainer/SubViewport/PlayerViewport/SubViewport/Camera3D
 @onready var view_model_cam: Camera3D = $CanvasLayer/SubViewportContainer/SubViewport/ViewModelViewport/SubViewport/Camera3D
+@onready var label: Label = $CanvasLayer/Label
 
 @export var rng_seed: int = 0
 @export var width: int = 10
@@ -23,6 +24,7 @@ var current_orb_count: int
 var zoom_factor: float = 1.0
 var zoom_factor_change_speed: float = 5.0
 var forced_look: bool = false
+var label_timer: float = 0.0
 
 var occupied_cells: Dictionary = {}
 
@@ -107,6 +109,8 @@ func _ready() -> void:
 
 	for i in range(orb_count):
 		_spawn_orb()
+	
+	_show_text("%d" % [current_orb_count])
 
 
 func _get_node_center(index: int) -> Vector2:
@@ -122,6 +126,11 @@ func _get_node_center(index: int) -> Vector2:
 func _process(delta: float) -> void:
 	_update_camera()
 	_update_effects(delta)
+
+	if label.visible:
+		label_timer -= delta
+		if label_timer < 0:
+			label.visible = false
 
 
 func _update_camera() -> void:
@@ -169,6 +178,12 @@ func _spawn_orb() -> void:
 	occupied_cells[index] = null
 
 
+func _show_text(text: String):
+	label.text = text
+	label.visible = true
+	label_timer = 1.0
+
+
 func _on_orb_collected(orb: Orb) -> void:
 	occupied_cells.erase(orb.index)
 
@@ -176,7 +191,9 @@ func _on_orb_collected(orb: Orb) -> void:
 
 	current_orb_count -= 1
 	if current_orb_count <= 0:
-		print("player wins")
+		_show_text("YOU WIN")
+	else:
+		_show_text("%d" % [current_orb_count])
 
 
 func _spawn_illusion() -> void:
@@ -240,4 +257,4 @@ func _on_spectre_inactive() -> void:
 
 
 func _on_player_died() -> void:
-	print("died")
+	_show_text("YOU DIED")
