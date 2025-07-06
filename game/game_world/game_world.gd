@@ -105,9 +105,6 @@ func _ready() -> void:
 		spectre.activate()
 		occupied_cells[spectre_index] = null
 
-	for i in range(3):
-		_spawn_illusion()
-
 	for i in range(orb_count):
 		_spawn_orb()
 
@@ -174,6 +171,8 @@ func _spawn_orb() -> void:
 
 func _on_orb_collected(orb: Orb) -> void:
 	occupied_cells.erase(orb.index)
+
+	_spawn_illusion()
 
 	current_orb_count -= 1
 	if current_orb_count <= 0:
