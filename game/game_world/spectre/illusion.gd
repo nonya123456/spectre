@@ -4,6 +4,8 @@ extends Node3D
 
 signal found(illusion: Illusion)
 
+var index: int
+
 var target: Node3D = null
 
 var is_found: bool
@@ -51,8 +53,7 @@ func handle_target_entered_sight() -> void:
 	spectre_model.set_shake(true)
 
 
-func reset(pos: Vector3) -> void:
+func reset() -> void:
 	is_found = false
 	found_timer = 0.25
 	spectre_model.set_shake(false)
-	global_position = pos

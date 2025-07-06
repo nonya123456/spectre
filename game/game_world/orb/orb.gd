@@ -2,7 +2,9 @@ class_name Orb
 
 extends Area3D
 
-signal collected
+signal collected(orb: Orb)
+
+var index: int
 
 @onready var model: Node3D = $OrbModel
 
@@ -19,4 +21,4 @@ func _physics_process(_delta: float) -> void:
 
 	if has_overlapping_bodies():
 		queue_free()
-		collected.emit()
+		collected.emit(self)

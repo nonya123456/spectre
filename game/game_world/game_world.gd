@@ -24,6 +24,8 @@ var zoom_factor: float = 1.0
 var zoom_factor_change_speed: float = 5.0
 var forced_look: bool = false
 
+var occupied_cells: Dictionary = {}
+
 
 func _ready() -> void:
 	var maze_graph: MazeGraph = MazeGenerator.generate_maze(rng_seed, width, height)
@@ -95,35 +97,22 @@ func _ready() -> void:
 				map.add_child(corner)
 	
 	spectre.target = player
+	var spectre_index: int = _get_available_cell()
+	if spectre_index != -1:
+		var pos: Vector2 = _get_node_center(spectre_index)
+		spectre.position = Vector3(pos.x, 0.0, pos.y)
+		occupied_cells[spectre_index] = null
 
-	_spawn_illusions()
+	for i in range(10):
+		_spawn_illusion()
 
-	_spawn_orbs()
-
-	
-func _get_random_numbers(count: int, min_val: int, max_val: int) -> PackedInt32Array:
-	if count <= 0 or min_val > max_val:
-		return PackedInt32Array()
-
-	var numbers := PackedInt32Array()
-	var possible_numbers := PackedInt32Array()
-	for i in range(min_val, max_val + 1):
-		possible_numbers.append(i)
-
-	randomize()
-
-	for i in range(count):
-		if possible_numbers.is_empty():
-			break
-
-		var random_index = randi() % possible_numbers.size()
-		numbers.append(possible_numbers[random_index])
-		possible_numbers.remove_at(random_index)
-
-	return numbers
+	for i in range(orb_count):
+		_spawn_orb()
 
 
-func _get_node_center(i: int, j: int) -> Vector2:
+func _get_node_center(index: int) -> Vector2:
+	var i: int = int(index / floor(width))
+	var j: int = index % height
 	var map_height: float = node_size * height + wall_thickness * (height + 1)
 	var map_width: float = node_size * width + wall_thickness * (width + 1)
 	var pos_x: float = (i + 1) * (node_size + wall_thickness) - node_size / 2 - map_height / 2
@@ -164,53 +153,71 @@ func _on_spectre_target_lost() -> void:
 	player.stop_forced_look()
 
 
-func _spawn_orbs() -> void:
-	var random_numbers: PackedInt32Array = _get_random_numbers(orb_count, 0, width * height - 1)
-	for index in random_numbers:
-		var i: int = int(index / floor(width))
-		var j: int = index % height
-		_spawn_orb(i, j)
+func _spawn_orb() -> void:
+	var index = _get_available_cell()
+	if index == -1:
+		return
 
-
-func _spawn_orb(i: int, j: int) -> void:
 	var orb: Orb = orb_scene.instantiate()
-	var pos: Vector2 = _get_node_center(i, j)
+	var pos: Vector2 = _get_node_center(index)
+	orb.index = index
 	orb.position = Vector3(pos.x, 1.2, pos.y)
 	orb.collected.connect(_on_orb_collected)
 	add_child(orb)
+
 	current_orb_count += 1
 
+	occupied_cells[index] = null
 
-func _on_orb_collected() -> void:
+
+func _on_orb_collected(orb: Orb) -> void:
+	occupied_cells.erase(orb.index)
+
 	current_orb_count -= 1
 	if current_orb_count <= 0:
 		print("player wins")
 
 
-func _spawn_illusions() -> void:
-	var random_numbers: PackedInt32Array = _get_random_numbers(10, 0, width * height - 1)
-	for index in random_numbers:
-		var i: int = int(index / floor(width))
-		var j: int = index % height
-		_spawn_illusion(i, j)
+func _spawn_illusion() -> void:
+	var index = _get_available_cell()
+	if index == -1:
+		return
 
-
-func _spawn_illusion(i: int, j: int) -> void:
 	var illusion: Illusion = illusion_scene.instantiate()
-	var pos: Vector2 = _get_node_center(i, j)
+	var pos: Vector2 = _get_node_center(index)
+	illusion.index = index
 	illusion.target = player
 	illusion.position = Vector3(pos.x, 0.0, pos.y)
 	illusion.found.connect(_on_illusion_found)
 	add_child(illusion)
 
+	occupied_cells[index] = null
+
 
 func _on_illusion_found(illusion: Illusion) -> void:
-	var random_numbers: PackedInt32Array = _get_random_numbers(1, 0, width * height - 1)
-	if len(random_numbers) == 0:
+	occupied_cells.erase(illusion.index)
+
+	var index = _get_available_cell()
+	if index == -1:
 		return
+
+	var pos: Vector2 = _get_node_center(index)
+	illusion.index = index
+	illusion.position = Vector3(pos.x, 0.0, pos.y)
+	illusion.reset()
+
+	occupied_cells[index] = null
+
+
+func _get_available_cell() -> int:
+	var possible_numbers: PackedInt32Array = []
+	for i in range(0, width * height):
+		if occupied_cells.has(i):
+			continue
+		possible_numbers.append(i)
 	
-	var index = random_numbers[0]
-	var i: int = int(index / floor(width))
-	var j: int = index % height
-	var pos: Vector2 = _get_node_center(i, j)
-	illusion.reset(Vector3(pos.x, 0, pos.y))
+	if possible_numbers.is_empty():
+		return -1
+	
+	var random_index = randi() % possible_numbers.size()
+	return possible_numbers[random_index]
