@@ -5,7 +5,7 @@ extends Node3D
 var target: Node3D = null
 
 var found: bool
-var found_timer: float = 0.5
+var found_timer: float = 0.25
 
 @onready var marker: Marker3D = $Marker3D
 @onready var spectre_model: SpectreModel = $SpectreModel
