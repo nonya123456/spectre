@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=7 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world/game_world.gd" id="1_3xdgc"]
 [ext_resource type="PackedScene" uid="uid://bolwbkdcbqdjo" path="res://game/game_world/spectre/spectre.tscn" id="2_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/game_world/player/player.tscn" id="3_8hsaj"]
-[ext_resource type="PackedScene" uid="uid://cn47sex35ejqf" path="res://game/game_world/spectre/illusion.tscn" id="4_e7f4c"]
 [ext_resource type="Shader" uid="uid://b7bcoud8wrmd1" path="res://game/game_world/game_world.gdshader" id="5_e5oes"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
@@ -27,9 +26,6 @@ environment = SubResource("Environment_iexac")
 
 [node name="Spectre" parent="." instance=ExtResource("2_8hsaj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19653, 0, 4.93551)
-
-[node name="Illusion" parent="." instance=ExtResource("4_e7f4c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28602, 0, -7.90523)
 
 [node name="Player" parent="." instance=ExtResource("3_8hsaj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

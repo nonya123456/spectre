@@ -2,9 +2,11 @@ class_name Illusion
 
 extends Node3D
 
+signal found(illusion: Illusion)
+
 var target: Node3D = null
 
-var found: bool
+var is_found: bool
 var found_timer: float = 0.25
 
 @onready var marker: Marker3D = $Marker3D
@@ -24,7 +26,7 @@ func _physics_process(_delta: float) -> void:
 	var direction: Vector3 = disp.normalized()
 	look_at(global_position - direction, Vector3.UP)
 
-	if found:
+	if is_found:
 		return
 
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
@@ -36,15 +38,21 @@ func _physics_process(_delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-	if !found:
+	if !is_found:
 		return
 	
 	found_timer -= delta
 	if found_timer < 0:
-		spectre_model.remove_material() # HACK: fix material is null error
-		queue_free()
+		found.emit(self)
 
 
 func handle_target_entered_sight() -> void:
-	found = true
+	is_found = true
 	spectre_model.set_shake(true)
+
+
+func reset(pos: Vector3) -> void:
+	is_found = false
+	found_timer = 0.25
+	spectre_model.set_shake(false)
+	global_position = pos

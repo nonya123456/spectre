@@ -1,7 +1,6 @@
 extends Node
 
 @onready var spectre: Spectre = $Spectre
-@onready var illusion: Illusion = $Illusion
 @onready var player: Player = $Player
 @onready var map: Node3D = $Map
 @onready var viewport: SubViewportContainer = $CanvasLayer/SubViewportContainer
@@ -14,6 +13,7 @@ extends Node
 @export var node_size: float = 3.0
 @export var node_height: float = 6.0
 @export var wall_thickness: float = 0.5
+@export var illusion_scene: PackedScene = preload("res://game/game_world/spectre/illusion.tscn")
 @export var block_scene: PackedScene = preload("res://game/game_world/block/block.tscn")
 @export var orb_scene: PackedScene = preload("res://game/game_world/orb/orb.tscn")
 @export var orb_count: int = 10
@@ -95,18 +95,12 @@ func _ready() -> void:
 				map.add_child(corner)
 	
 	spectre.target = player
-	illusion.target = player
 
-	var random_numbers: PackedInt32Array = _get_random_numbers(orb_count, 0, width * height - 1)
-	for index in random_numbers:
-		var i: int = int(index / floor(width))
-		var j: int = index % height
-		var pos_x: float = (i + 1) * (node_size + wall_thickness) - node_size / 2 - map_height / 2
-		var pos_z: float = (j + 1) * (node_size + wall_thickness) - node_size / 2 - map_width / 2
-		_spawn_orb(Vector3(pos_x, 1.2, pos_z))
-		current_orb_count += 1
+	_spawn_illusions()
 
+	_spawn_orbs()
 
+	
 func _get_random_numbers(count: int, min_val: int, max_val: int) -> PackedInt32Array:
 	if count <= 0 or min_val > max_val:
 		return PackedInt32Array()
@@ -127,6 +121,14 @@ func _get_random_numbers(count: int, min_val: int, max_val: int) -> PackedInt32A
 		possible_numbers.remove_at(random_index)
 
 	return numbers
+
+
+func _get_node_center(i: int, j: int) -> Vector2:
+	var map_height: float = node_size * height + wall_thickness * (height + 1)
+	var map_width: float = node_size * width + wall_thickness * (width + 1)
+	var pos_x: float = (i + 1) * (node_size + wall_thickness) - node_size / 2 - map_height / 2
+	var pos_z: float = (j + 1) * (node_size + wall_thickness) - node_size / 2 - map_width / 2
+	return Vector2(pos_x, pos_z)
 
 
 func _process(delta: float) -> void:
@@ -162,14 +164,53 @@ func _on_spectre_target_lost() -> void:
 	player.stop_forced_look()
 
 
-func _spawn_orb(position: Vector3) -> void:
+func _spawn_orbs() -> void:
+	var random_numbers: PackedInt32Array = _get_random_numbers(orb_count, 0, width * height - 1)
+	for index in random_numbers:
+		var i: int = int(index / floor(width))
+		var j: int = index % height
+		_spawn_orb(i, j)
+
+
+func _spawn_orb(i: int, j: int) -> void:
 	var orb: Orb = orb_scene.instantiate()
-	orb.position = position
+	var pos: Vector2 = _get_node_center(i, j)
+	orb.position = Vector3(pos.x, 1.2, pos.y)
 	orb.collected.connect(_on_orb_collected)
 	add_child(orb)
+	current_orb_count += 1
 
 
 func _on_orb_collected() -> void:
 	current_orb_count -= 1
 	if current_orb_count <= 0:
 		print("player wins")
+
+
+func _spawn_illusions() -> void:
+	var random_numbers: PackedInt32Array = _get_random_numbers(10, 0, width * height - 1)
+	for index in random_numbers:
+		var i: int = int(index / floor(width))
+		var j: int = index % height
+		_spawn_illusion(i, j)
+
+
+func _spawn_illusion(i: int, j: int) -> void:
+	var illusion: Illusion = illusion_scene.instantiate()
+	var pos: Vector2 = _get_node_center(i, j)
+	illusion.target = player
+	illusion.position = Vector3(pos.x, 0.0, pos.y)
+	illusion.found.connect(_on_illusion_found)
+	add_child(illusion)
+
+
+func _on_illusion_found(illusion: Illusion) -> void:
+	var random_numbers: PackedInt32Array = _get_random_numbers(1, 0, width * height - 1)
+	if len(random_numbers) == 0:
+		return
+	
+	var index = random_numbers[0]
+	var i: int = int(index / floor(width))
+	var j: int = index % height
+	var pos: Vector2 = _get_node_center(i, j)
+	illusion.reset(Vector3(pos.x, 0, pos.y))
