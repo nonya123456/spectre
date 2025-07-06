@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 signal died
 
-@export var max_health: int = 10
+@export var max_health: int = 3
 @export var move_speed: float = 4.0
 @export var sensitivity: float = 0.2
 @export var sway_strength: float = 0.0002
@@ -15,7 +15,6 @@ var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
 var is_forced_look: bool = false
 var forced_look_position: Vector3
-var attack_time: float
 var attack_timer: float
 
 @onready var health = max_health
@@ -71,12 +70,25 @@ func _process(delta: float) -> void:
 	if is_forced_look:
 		attack_timer -= delta
 		if attack_timer < 0:
-			health -= 1
-			spot_light.spot_range = max(4.0, start_spot_range * float(health) / float(max_health))
-			attack_timer = attack_time
+			_take_damage()
+			attack_timer = 1.0
 
 			if health <= 0:
 				died.emit()
+
+
+func _take_damage() -> void:
+	health -= 1
+	_update_spot_range()
+
+
+func reset_health() -> void:
+	health = max_health
+	_update_spot_range()
+
+
+func _update_spot_range() -> void:
+	spot_light.spot_range = max(4.0, start_spot_range * float(health) / float(max_health))
 
 
 func _handle_look(delta: float) -> void:
@@ -103,11 +115,10 @@ func _handle_look(delta: float) -> void:
 		view_model.sway(Vector2(-look_input.x * sway_strength, look_input.y * sway_strength))
 
 
-func start_forced_look(marker_position: Vector3, time: float) -> void:
+func start_forced_look(marker_position: Vector3) -> void:
 	is_forced_look = true
 	forced_look_position = marker_position
-	attack_time = time
-	attack_timer = time
+	attack_timer = 1.0
 
 
 func stop_forced_look() -> void:

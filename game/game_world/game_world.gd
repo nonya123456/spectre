@@ -159,7 +159,7 @@ func _update_effects(delta: float) -> void:
 
 func _on_spectre_target_found(marker_position: Vector3) -> void:
 	forced_look = true
-	player.start_forced_look(marker_position, 1.0)
+	player.start_forced_look(marker_position)
 
 
 func _on_spectre_target_lost() -> void:
@@ -200,6 +200,8 @@ func _on_orb_collected(orb: Orb) -> void:
 		_show_text("YOU WIN")
 	else:
 		_show_text("%d" % [current_orb_count])
+	
+	player.reset_health()
 
 
 func _spawn_illusion() -> void:
