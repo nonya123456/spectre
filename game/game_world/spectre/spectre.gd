@@ -17,7 +17,6 @@ var target_in_sight: bool = false
 @onready var spectre_model: SpectreModel = $SpectreModel
 
 @export var target_enter_range: float = 4.0
-@export var target_exit_range: float = 12.0
 @export_flags_3d_physics var collision_mask: int
 
 
@@ -41,9 +40,10 @@ func _physics_process(_delta: float) -> void:
 		spectre_model.set_emission_strength(4.0)
 		spectre_model.set_emission_color(Color.DARK_RED)
 
-	if target_in_sight and (!result.has("collider") or result["collider"] != target or disp.length() > target_exit_range):
+	if target_in_sight and (!result.has("collider") or result["collider"] != target):
 		target_in_sight = false
 		target_lost.emit()
+		active_timer = 0
 		spectre_model.set_emission_strength(2.0)
 		spectre_model.set_emission_color(Color.WHITE)
 

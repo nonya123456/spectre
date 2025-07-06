@@ -45,6 +45,7 @@ func _process(delta: float) -> void:
 	
 	found_timer -= delta
 	if found_timer < 0:
+		global_position = Vector3(0, -1000, 0)
 		found.emit(self)
 
 

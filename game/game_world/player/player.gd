@@ -72,7 +72,7 @@ func _process(delta: float) -> void:
 		attack_timer -= delta
 		if attack_timer < 0:
 			health -= 1
-			spot_light.spot_range = max(3.0, start_spot_range * float(health) / float(max_health))
+			spot_light.spot_range = max(4.0, start_spot_range * float(health) / float(max_health))
 			attack_timer = attack_time
 
 			if health <= 0:
