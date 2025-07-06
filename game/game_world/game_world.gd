@@ -97,6 +97,12 @@ func _ready() -> void:
 				var pos_z: float = (j + 1) * (node_size + wall_thickness) + wall_thickness / 2 - map_width / 2
 				corner.position = Vector3(pos_x, node_height / 2, pos_z)
 				map.add_child(corner)
+
+	var player_index: int = _get_available_cell()
+	if player_index != -1:
+		var pos: Vector2 = _get_node_center(player_index)
+		player.position.x = pos.x
+		player.position.z = pos.y
 	
 	spectre.target = player
 	var spectre_index: int = _get_available_cell()
