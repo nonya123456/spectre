@@ -10,7 +10,8 @@ var target_in_sight: bool = false
 
 @onready var marker: Marker3D = $Marker3D
 
-@export var sight_range: float = 6.0
+@export var target_enter_range: float = 6.0
+@export var target_exit_range: float = 12.0
 @export_flags_3d_physics var collision_mask: int
 
 
@@ -28,10 +29,10 @@ func _physics_process(_delta: float) -> void:
 	var query := PhysicsRayQueryParameters3D.create(marker.global_position, target.global_position, collision_mask, [self])
 	var result = space_state.intersect_ray(query)
 
-	if !target_in_sight and (result.has("collider") and result["collider"] == target and disp.length() <= sight_range):
+	if !target_in_sight and (result.has("collider") and result["collider"] == target and disp.length() <= target_enter_range):
 		target_in_sight = true
 		target_found.emit(marker.global_position)
 
-	if target_in_sight and (!result.has("collider") or result["collider"] != target or disp.length() > sight_range):
+	if target_in_sight and (!result.has("collider") or result["collider"] != target or disp.length() > target_exit_range):
 		target_in_sight = false
 		target_lost.emit()
