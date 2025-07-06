@@ -15,6 +15,7 @@ var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
 var is_forced_look: bool = false
 var forced_look_position: Vector3
+var has_died: bool
 
 @export var attack_time: float = 1.0
 var attack_timer: float
@@ -78,7 +79,8 @@ func _process(delta: float) -> void:
 			_take_damage()
 			attack_timer = attack_time
 
-			if health <= 0:
+			if health <= 0 and !has_died:
+				has_died = true
 				died.emit()
 	else:
 		drain_timer -= delta

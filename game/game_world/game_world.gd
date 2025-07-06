@@ -1,4 +1,8 @@
+class_name GameWorld
+
 extends Node
+
+signal ended
 
 @onready var spectre: Spectre = $Spectre
 @onready var player: Player = $Player
@@ -27,6 +31,8 @@ var forced_look: bool = false
 var label_timer: float = 0.0
 
 var occupied_cells: Dictionary = {}
+
+var has_ended: bool
 
 
 func _ready() -> void:
@@ -198,8 +204,11 @@ func _on_orb_collected(orb: Orb) -> void:
 	_spawn_illusion()
 
 	current_orb_count -= 1
-	if current_orb_count <= 0:
+	if current_orb_count <= 0 and !has_ended:
 		_show_text("YOU WIN")
+		has_ended = true
+		await get_tree().create_timer(1.0).timeout
+		ended.emit()
 	else:
 		_show_text("%d" % [current_orb_count])
 	
@@ -268,6 +277,10 @@ func _on_spectre_inactive() -> void:
 
 func _on_player_died() -> void:
 	_show_text("YOU DIED")
+	if !has_ended:
+		has_ended = true
+		await get_tree().create_timer(1.0).timeout
+		ended.emit()
 
 
 func _notification(what: int) -> void:

@@ -1,3 +1,5 @@
+class_name MainMenu
+
 extends Node
 
 signal play_button_pressed
