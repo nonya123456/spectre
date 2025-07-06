@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 signal died
 
-@export var max_health: int = 3
+@export var max_health: int = 4
 @export var move_speed: float = 4.0
 @export var sensitivity: float = 0.2
 @export var sway_strength: float = 0.0002
@@ -15,7 +15,12 @@ var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
 var is_forced_look: bool = false
 var forced_look_position: Vector3
+
+@export var attack_time: float = 1.0
 var attack_timer: float
+
+@export var drain_time: float = 30.0
+var drain_timer: float
 
 @onready var health = max_health
 @onready var marker: Marker3D = $Marker3D
@@ -71,10 +76,15 @@ func _process(delta: float) -> void:
 		attack_timer -= delta
 		if attack_timer < 0:
 			_take_damage()
-			attack_timer = 1.0
+			attack_timer = attack_time
 
 			if health <= 0:
 				died.emit()
+	else:
+		drain_timer -= delta
+		if drain_timer < 0 && health > 1:
+			_take_damage()
+			drain_timer = drain_time
 
 
 func _take_damage() -> void:
@@ -82,13 +92,14 @@ func _take_damage() -> void:
 	_update_spot_range()
 
 
-func reset_health() -> void:
-	health = max_health
+func heal() -> void:
+	health = move_toward(health, max_health, 1)
+	drain_timer = drain_time
 	_update_spot_range()
 
 
 func _update_spot_range() -> void:
-	spot_light.spot_range = max(4.0, start_spot_range * float(health) / float(max_health))
+	spot_light.spot_range = start_spot_range * float(health) / float(max_health)
 
 
 func _handle_look(delta: float) -> void:
@@ -118,7 +129,7 @@ func _handle_look(delta: float) -> void:
 func start_forced_look(marker_position: Vector3) -> void:
 	is_forced_look = true
 	forced_look_position = marker_position
-	attack_timer = 1.0
+	attack_timer = attack_time
 
 
 func stop_forced_look() -> void:

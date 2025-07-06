@@ -201,7 +201,7 @@ func _on_orb_collected(orb: Orb) -> void:
 	else:
 		_show_text("%d" % [current_orb_count])
 	
-	player.reset_health()
+	player.heal()
 
 
 func _spawn_illusion() -> void:
