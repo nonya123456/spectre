@@ -84,5 +84,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 cull_mask = 2
 fov = 60.0
 
+[connection signal="inactive" from="Spectre" to="." method="_on_spectre_inactive"]
 [connection signal="target_found" from="Spectre" to="." method="_on_spectre_target_found"]
 [connection signal="target_lost" from="Spectre" to="." method="_on_spectre_target_lost"]

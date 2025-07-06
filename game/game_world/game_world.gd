@@ -99,11 +99,13 @@ func _ready() -> void:
 	spectre.target = player
 	var spectre_index: int = _get_available_cell()
 	if spectre_index != -1:
+		spectre.index = spectre_index
 		var pos: Vector2 = _get_node_center(spectre_index)
 		spectre.position = Vector3(pos.x, 0.0, pos.y)
+		spectre.activate()
 		occupied_cells[spectre_index] = null
 
-	for i in range(10):
+	for i in range(3):
 		_spawn_illusion()
 
 	for i in range(orb_count):
@@ -221,3 +223,18 @@ func _get_available_cell() -> int:
 	
 	var random_index = randi() % possible_numbers.size()
 	return possible_numbers[random_index]
+
+
+func _on_spectre_inactive() -> void:
+	occupied_cells.erase(spectre.index)
+
+	var index: int = _get_available_cell()
+	if index == -1:
+		return
+
+	spectre.index = index
+	var pos: Vector2 = _get_node_center(index)
+	spectre.position = Vector3(pos.x, 0.0, pos.y)
+	spectre.activate()
+
+	occupied_cells[index] = null

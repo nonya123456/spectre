@@ -2,8 +2,13 @@ class_name Spectre
 
 extends Node3D
 
+signal inactive
 signal target_found(marker_position: Vector3)
 signal target_lost
+
+var index: int;
+
+var active_timer: float
 
 var target: Node3D = null
 var target_in_sight: bool = false
@@ -17,7 +22,7 @@ var target_in_sight: bool = false
 
 
 func _physics_process(_delta: float) -> void:
-	if !target:
+	if !target or !is_active():
 		return
 
 	var disp: Vector3 = target.global_position - global_position
@@ -41,3 +46,23 @@ func _physics_process(_delta: float) -> void:
 		target_lost.emit()
 		spectre_model.set_emission_strength(2.0)
 		spectre_model.set_emission_color(Color.WHITE)
+
+
+func _process(delta: float) -> void:
+	if target_in_sight:
+		return
+
+	active_timer -= delta
+	if active_timer <= 0:
+		visible = false
+		target_in_sight = false
+		inactive.emit()
+
+
+func is_active() -> bool:
+	return active_timer > 0
+
+
+func activate() -> void:
+	visible = true
+	active_timer = 30.0
