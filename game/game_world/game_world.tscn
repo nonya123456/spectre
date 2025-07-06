@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=8 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world/game_world.gd" id="1_3xdgc"]
 [ext_resource type="PackedScene" uid="uid://bolwbkdcbqdjo" path="res://game/game_world/spectre/spectre.tscn" id="2_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/game_world/player/player.tscn" id="3_8hsaj"]
-[ext_resource type="FontFile" uid="uid://27yf5xbp52t5" path="res://game/game_world/FiraSans-Bold.ttf" id="4_e5oes"]
 [ext_resource type="Shader" uid="uid://b7bcoud8wrmd1" path="res://game/game_world/game_world.gdshader" id="5_e5oes"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
@@ -18,7 +17,6 @@ shader_parameter/zoom_factor = 1.0
 shader_parameter/shake_intensity = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_3qnfg"]
-font = ExtResource("4_e5oes")
 font_size = 256
 font_color = Color(0.784314, 0.784314, 0.784314, 0.392157)
 
