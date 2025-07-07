@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqlu15akibhd7"]
+[gd_scene load_steps=7 format=3 uid="uid://cqlu15akibhd7"]
 
 [ext_resource type="Script" uid="uid://b40stxv2pw5xs" path="res://game/game_world/pause_menu/pause_menu_viewport.gd" id="1_gk77w"]
+[ext_resource type="AudioStream" uid="uid://b5tqs10gk483b" path="res://game/shared/sounds/button_pressed.ogg" id="2_76ge6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gk77w"]
 font_size = 32
@@ -77,6 +78,9 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fbqh7")
 theme_override_styles/normal = SubResource("StyleBoxFlat_hvt1y")
 text = "Quit to Main Menu"
 flat = true
+
+[node name="ButtonPressedPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_76ge6")
 
 [connection signal="pressed" from="SubViewport/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="SubViewport/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
