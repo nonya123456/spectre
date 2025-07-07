@@ -134,7 +134,8 @@ pitch_scale = 1.2
 
 [node name="ForcedLookPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_8ti5s")
-volume_db = -5.0
+volume_db = -10.0
+pitch_scale = 0.9
 parameters/looping = true
 
 [node name="ForcedLookEnteredPlayer" type="AudioStreamPlayer" parent="."]

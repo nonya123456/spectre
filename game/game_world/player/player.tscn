@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://btclrhh2rhavb"]
+[gd_scene load_steps=5 format=3 uid="uid://btclrhh2rhavb"]
 
 [ext_resource type="Script" uid="uid://canb5ma08x6si" path="res://game/game_world/player/player.gd" id="1_dadds"]
 [ext_resource type="PackedScene" uid="uid://c0xfp88mk5t7l" path="res://game/game_world/player/view_model/view_model.tscn" id="2_b2mth"]
+[ext_resource type="AudioStream" uid="uid://c50reurkqp01a" path="res://game/game_world/player/footstep.ogg" id="3_3lyab"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w5y0b"]
 
@@ -22,3 +23,8 @@ spot_range = 10.0
 spot_angle = 37.5
 
 [node name="ViewModel" parent="Marker3D" instance=ExtResource("2_b2mth")]
+
+[node name="FootstepPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3lyab")
+volume_db = -5.0
+pitch_scale = 1.2

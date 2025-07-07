@@ -5,11 +5,15 @@ extends CharacterBody3D
 signal died
 
 @export var max_health: int = 4
-@export var move_speed: float = 4.0
+@export var move_speed: float = 3.0
 @export var sensitivity: float = 0.2
 @export var sway_strength: float = 0.0002
 @export var forced_look_rotate_speed: float = 8.0
-@export var forced_look_move_speed: float = 2.5
+@export var forced_look_move_speed: float = 2.0
+
+@export var footstep_interval: float = 0.8
+var footstep_timer: float = 0.0
+var last_input_dir: Vector3 = Vector3.ZERO
 
 var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
@@ -28,6 +32,7 @@ var attack_timer: float
 @onready var view_model: ViewModel = $Marker3D/ViewModel
 @onready var spot_light: SpotLight3D = $Marker3D/SpotLight3D
 @onready var start_spot_range = spot_light.spot_range
+@onready var footstep_player: AudioStreamPlayer = $FootstepPlayer
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -60,6 +65,16 @@ func _physics_process(delta: float) -> void:
 	velocity += Vector3.DOWN * 9.8 * delta
 
 	move_and_slide()
+
+	if input_dir != Vector3.ZERO and last_input_dir != Vector3.ZERO:
+		footstep_timer += delta if !is_forced_look else 0.0
+		if footstep_timer >= footstep_interval:
+			footstep_player.play()
+			footstep_timer = 0.0
+	elif input_dir != Vector3.ZERO:
+		footstep_timer = footstep_interval / 2.0
+
+	last_input_dir = input_dir
 
 	_handle_look(delta)
 
