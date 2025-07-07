@@ -7,10 +7,10 @@ signal ended
 @onready var spectre: Spectre = $Spectre
 @onready var player: Player = $Player
 @onready var map: Node3D = $Map
-@onready var viewport: SubViewportContainer = $CanvasLayer/SubViewportContainer
-@onready var player_cam: Camera3D = $CanvasLayer/SubViewportContainer/SubViewport/PlayerViewport/SubViewport/Camera3D
-@onready var view_model_cam: Camera3D = $CanvasLayer/SubViewportContainer/SubViewport/ViewModelViewport/SubViewport/Camera3D
-@onready var label: Label = $CanvasLayer/Label
+@onready var world_viewport: SubViewportContainer = $CanvasLayer/WorldViewport
+@onready var player_cam: Camera3D = $CanvasLayer/WorldViewport/SubViewport/PlayerViewport/SubViewport/Camera3D
+@onready var view_model_cam: Camera3D = $CanvasLayer/WorldViewport/SubViewport/ViewModelViewport/SubViewport/Camera3D
+@onready var label: Label = $CanvasLayer/LabelViewport/SubViewport/Label
 
 @export var rng_seed: int = 0
 @export var width: int = 10
@@ -159,10 +159,10 @@ func _update_camera() -> void:
 func _update_effects(delta: float) -> void:
 	var target_force: float = 1.5 if forced_look else 1.0
 	zoom_factor = move_toward(zoom_factor, target_force, delta * zoom_factor_change_speed)
-	viewport.material.set_shader_parameter("zoom_factor", zoom_factor)
+	world_viewport.material.set_shader_parameter("zoom_factor", zoom_factor)
 
 	var shake_intensity: float = 0.01 if forced_look else 0.0
-	viewport.material.set_shader_parameter("shake_intensity", shake_intensity)
+	world_viewport.material.set_shader_parameter("shake_intensity", shake_intensity)
 
 
 func _on_spectre_target_found(marker_position: Vector3) -> void:

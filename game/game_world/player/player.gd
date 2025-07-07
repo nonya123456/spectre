@@ -87,7 +87,6 @@ func _process(delta: float) -> void:
 		if drain_timer < 0 && health > 1:
 			_take_damage()
 			drain_timer = drain_time
-			print("ouch")
 
 
 func _take_damage() -> void:

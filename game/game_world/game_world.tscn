@@ -17,7 +17,7 @@ shader_parameter/zoom_factor = 1.0
 shader_parameter/shake_intensity = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_3qnfg"]
-font_size = 256
+font_size = 90
 font_color = Color(0.784314, 0.784314, 0.784314, 0.392157)
 
 [node name="GameWorld" type="Node"]
@@ -36,7 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+[node name="WorldViewport" type="SubViewportContainer" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_3qnfg")
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,12 +46,12 @@ grow_vertical = 2
 stretch = true
 stretch_shrink = 3
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/WorldViewport"]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="PlayerViewport" type="SubViewportContainer" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+[node name="PlayerViewport" type="SubViewportContainer" parent="CanvasLayer/WorldViewport/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -59,17 +59,17 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer/SubViewport/PlayerViewport"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/WorldViewport/SubViewport/PlayerViewport"]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport/PlayerViewport/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/WorldViewport/SubViewport/PlayerViewport/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 cull_mask = 1048573
 fov = 60.0
 
-[node name="ViewModelViewport" type="SubViewportContainer" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+[node name="ViewModelViewport" type="SubViewportContainer" parent="CanvasLayer/WorldViewport/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -77,30 +77,43 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer/SubViewport/ViewModelViewport"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/WorldViewport/SubViewport/ViewModelViewport"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport/ViewModelViewport/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/WorldViewport/SubViewport/ViewModelViewport/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 cull_mask = 2
 fov = 60.0
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-visible = false
+[node name="LabelViewport" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/LabelViewport"]
+transparent_bg = true
+size = Vector2i(640, 360)
+
+[node name="Label" type="Label" parent="CanvasLayer/LabelViewport/SubViewport"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -250.0
-offset_right = 960.0
-offset_bottom = 250.0
+offset_left = -320.0
+offset_top = -85.0
+offset_right = 320.0
+offset_bottom = 85.0
 grow_horizontal = 2
 grow_vertical = 2
+text = "fadf"
 label_settings = SubResource("LabelSettings_3qnfg")
 horizontal_alignment = 1
 vertical_alignment = 1

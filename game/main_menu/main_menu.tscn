@@ -13,30 +13,43 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_f1bok"]
-font_size = 120
+font_size = 40
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_rlutr")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+size = Vector2i(640, 360)
+
+[node name="Background" type="TextureRect" parent="SubViewportContainer/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_f1bok")
+expand_mode = 5
 
-[node name="Buttons" type="VBoxContainer" parent="."]
-offset_left = 340.0
-offset_top = 600.0
-offset_right = 940.0
-offset_bottom = 900.0
+[node name="Buttons" type="VBoxContainer" parent="SubViewportContainer/SubViewport"]
+offset_left = 110.0
+offset_top = 180.0
+offset_right = 310.0
+offset_bottom = 270.0
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="Buttons"]
+[node name="PlayButton" type="Button" parent="SubViewportContainer/SubViewport/Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 54
+theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
@@ -45,10 +58,10 @@ text = "Play
 flat = true
 alignment = 0
 
-[node name="CreditsButton" type="Button" parent="Buttons"]
+[node name="CreditsButton" type="Button" parent="SubViewportContainer/SubViewport/Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 54
+theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
@@ -57,10 +70,10 @@ text = "Credits
 flat = true
 alignment = 0
 
-[node name="QuitButton" type="Button" parent="Buttons"]
+[node name="QuitButton" type="Button" parent="SubViewportContainer/SubViewport/Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 54
+theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
@@ -69,16 +82,16 @@ text = "Quit
 flat = true
 alignment = 0
 
-[node name="Title" type="Label" parent="."]
-offset_left = 270.0
-offset_top = 90.0
-offset_right = 990.0
-offset_bottom = 390.0
+[node name="Title" type="Label" parent="SubViewportContainer/SubViewport"]
+offset_left = 90.0
+offset_top = 30.0
+offset_right = 330.0
+offset_bottom = 130.0
 text = "the spectre"
 label_settings = SubResource("LabelSettings_f1bok")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
