@@ -21,7 +21,7 @@ var has_died: bool
 var attack_timer: float
 
 @export var drain_time: float = 30.0
-var drain_timer: float
+@onready var drain_timer: float = drain_time
 
 @onready var health = max_health
 @onready var marker: Marker3D = $Marker3D
@@ -87,6 +87,7 @@ func _process(delta: float) -> void:
 		if drain_timer < 0 && health > 1:
 			_take_damage()
 			drain_timer = drain_time
+			print("ouch")
 
 
 func _take_damage() -> void:
