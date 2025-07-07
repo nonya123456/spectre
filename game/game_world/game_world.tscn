@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=12 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world/game_world.gd" id="1_3xdgc"]
 [ext_resource type="PackedScene" uid="uid://bolwbkdcbqdjo" path="res://game/game_world/spectre/spectre.tscn" id="2_8hsaj"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cqlu15akibhd7" path="res://game/game_world/pause_menu/pause_menu_viewport.tscn" id="5_3qnfg"]
 [ext_resource type="Shader" uid="uid://b7bcoud8wrmd1" path="res://game/game_world/game_world.gdshader" id="5_e5oes"]
 [ext_resource type="AudioStream" uid="uid://c4cuem48diu8l" path="res://game/game_world/orb_collected.ogg" id="6_3qnfg"]
+[ext_resource type="AudioStream" uid="uid://ckw567yonlcvi" path="res://game/game_world/forced_look.ogg" id="7_8ti5s"]
+[ext_resource type="AudioStream" uid="uid://gyji122aat74" path="res://game/game_world/forced_look_entered.ogg" id="8_256xm"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
 background_mode = 2
@@ -129,6 +131,15 @@ visible = false
 stream = ExtResource("6_3qnfg")
 volume_db = -10.0
 pitch_scale = 1.2
+
+[node name="ForcedLookPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_8ti5s")
+volume_db = -5.0
+parameters/looping = true
+
+[node name="ForcedLookEnteredPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_256xm")
+volume_db = -5.0
 
 [connection signal="inactive" from="Spectre" to="." method="_on_spectre_inactive"]
 [connection signal="target_found" from="Spectre" to="." method="_on_spectre_target_found"]

@@ -12,6 +12,8 @@ signal ended
 @onready var view_model_cam: Camera3D = $CanvasLayer/WorldViewport/SubViewport/ViewModelViewport/SubViewport/Camera3D
 @onready var label: Label = $CanvasLayer/LabelViewport/SubViewport/Label
 @onready var orb_collected_player: AudioStreamPlayer = $OrbCollectedPlayer
+@onready var forced_look_player: AudioStreamPlayer = $ForcedLookPlayer
+@onready var forced_look_entered_player: AudioStreamPlayer = $ForcedLookEnteredPlayer
 
 @export var rng_seed: int = 0
 @export var width: int = 10
@@ -169,11 +171,14 @@ func _update_effects(delta: float) -> void:
 func _on_spectre_target_found(marker_position: Vector3) -> void:
 	forced_look = true
 	player.start_forced_look(marker_position)
+	forced_look_entered_player.play()
+	forced_look_player.play()
 
 
 func _on_spectre_target_lost() -> void:
 	forced_look = false
 	player.stop_forced_look()
+	forced_look_player.stop()
 
 
 func _spawn_orb() -> void:
