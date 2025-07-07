@@ -28,7 +28,9 @@ stretch = true
 stretch_shrink = 3
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
 size = Vector2i(640, 360)
+render_target_update_mode = 4
 
 [node name="Background" type="TextureRect" parent="SubViewportContainer/SubViewport"]
 anchors_preset = 15
@@ -40,9 +42,9 @@ texture = ExtResource("1_f1bok")
 expand_mode = 5
 
 [node name="Buttons" type="VBoxContainer" parent="SubViewportContainer/SubViewport"]
-offset_left = 110.0
+offset_left = 90.0
 offset_top = 180.0
-offset_right = 310.0
+offset_right = 290.0
 offset_bottom = 270.0
 alignment = 1
 
@@ -89,9 +91,64 @@ offset_right = 330.0
 offset_bottom = 130.0
 text = "the spectre"
 label_settings = SubResource("LabelSettings_f1bok")
-horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Credits" type="Control" parent="SubViewportContainer/SubViewport"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Credits"]
+offset_left = 90.0
+offset_top = 30.0
+offset_right = 330.0
+offset_bottom = 130.0
+text = "Credits"
+label_settings = SubResource("LabelSettings_f1bok")
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SubViewportContainer/SubViewport/Credits"]
+offset_left = 90.0
+offset_top = 140.0
+offset_right = 390.0
+offset_bottom = 320.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Credits/ScrollContainer"]
+custom_minimum_size = Vector2(300, 180)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 10
+
+[node name="BackButton" type="Button" parent="SubViewportContainer/SubViewport/Credits"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -141.667
+offset_top = -63.0
+offset_right = -41.6666
+offset_bottom = -37.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
+text = "Back"
+flat = true
+alignment = 0
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/Credits/BackButton" to="." method="_on_back_button_pressed"]
