@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqlu15akibhd7"]
+
+[ext_resource type="Script" uid="uid://b40stxv2pw5xs" path="res://game/game_world/pause_menu/pause_menu_viewport.gd" id="1_gk77w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gk77w"]
+font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dk53c"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbqh7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvt1y"]
+
+[node name="PauseMenuViewport" type="SubViewportContainer"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+script = ExtResource("1_gk77w")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Label" type="Label" parent="SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -112.5
+offset_top = 40.0
+offset_right = 112.5
+offset_bottom = 90.0
+grow_horizontal = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_gk77w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="Button" parent="SubViewport"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxFlat_dk53c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fbqh7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hvt1y")
+text = "Quit to Main Menu"
+flat = true
+
+[connection signal="pressed" from="SubViewport/QuitButton" to="." method="_on_quit_button_pressed"]

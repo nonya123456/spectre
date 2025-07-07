@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=9 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world/game_world.gd" id="1_3xdgc"]
 [ext_resource type="PackedScene" uid="uid://bolwbkdcbqdjo" path="res://game/game_world/spectre/spectre.tscn" id="2_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/game_world/player/player.tscn" id="3_8hsaj"]
+[ext_resource type="PackedScene" uid="uid://cqlu15akibhd7" path="res://game/game_world/pause_menu/pause_menu_viewport.tscn" id="5_3qnfg"]
 [ext_resource type="Shader" uid="uid://b7bcoud8wrmd1" path="res://game/game_world/game_world.gdshader" id="5_e5oes"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
@@ -16,7 +17,7 @@ shader_parameter/center = Vector2(0.5, 0.5)
 shader_parameter/zoom_factor = 1.0
 shader_parameter/shake_intensity = 0.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_3qnfg"]
+[sub_resource type="LabelSettings" id="LabelSettings_e5oes"]
 font_size = 90
 font_color = Color(0.784314, 0.784314, 0.784314, 0.392157)
 
@@ -116,11 +117,15 @@ offset_right = 320.0
 offset_bottom = 85.0
 grow_horizontal = 2
 grow_vertical = 2
-label_settings = SubResource("LabelSettings_3qnfg")
+label_settings = SubResource("LabelSettings_e5oes")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PauseMenuViewport" parent="CanvasLayer" instance=ExtResource("5_3qnfg")]
+visible = false
 
 [connection signal="inactive" from="Spectre" to="." method="_on_spectre_inactive"]
 [connection signal="target_found" from="Spectre" to="." method="_on_spectre_target_found"]
 [connection signal="target_lost" from="Spectre" to="." method="_on_spectre_target_lost"]
 [connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="quit_button_pressed" from="CanvasLayer/PauseMenuViewport" to="." method="_on_pause_menu_viewport_quit_button_pressed"]

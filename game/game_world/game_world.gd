@@ -288,3 +288,8 @@ func _notification(what: int) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif what == NOTIFICATION_APPLICATION_FOCUS_OUT:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func _on_pause_menu_viewport_quit_button_pressed() -> void:
+	has_ended = true
+	ended.emit()
