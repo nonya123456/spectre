@@ -24,7 +24,8 @@ spot_angle = 37.5
 
 [node name="ViewModel" parent="Marker3D" instance=ExtResource("2_b2mth")]
 
-[node name="FootstepPlayer" type="AudioStreamPlayer" parent="."]
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_3lyab")
 volume_db = -5.0
 pitch_scale = 1.2
+max_distance = 2305.0

@@ -32,7 +32,7 @@ var attack_timer: float
 @onready var view_model: ViewModel = $Marker3D/ViewModel
 @onready var spot_light: SpotLight3D = $Marker3D/SpotLight3D
 @onready var start_spot_range = spot_light.spot_range
-@onready var footstep_player: AudioStreamPlayer = $FootstepPlayer
+@onready var footstep_player: AudioStreamPlayer3D = $FootstepPlayer
 
 
 func _unhandled_input(event: InputEvent) -> void:
