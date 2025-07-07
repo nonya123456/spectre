@@ -44,18 +44,33 @@ label_settings = SubResource("LabelSettings_gk77w")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="QuitButton" type="Button" parent="SubViewport"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -80.0
-offset_right = 100.0
-offset_bottom = -49.0
+offset_left = -128.0
+offset_top = -100.0
+offset_right = 128.0
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="ResumeButton" type="Button" parent="SubViewport/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxFlat_dk53c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fbqh7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hvt1y")
+text = "Resume
+"
+flat = true
+
+[node name="QuitButton" type="Button" parent="SubViewport/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxFlat_dk53c")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fbqh7")
@@ -63,4 +78,5 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hvt1y")
 text = "Quit to Main Menu"
 flat = true
 
-[connection signal="pressed" from="SubViewport/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="SubViewport/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="SubViewport/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

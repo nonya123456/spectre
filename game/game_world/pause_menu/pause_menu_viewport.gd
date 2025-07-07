@@ -14,6 +14,12 @@ func _process(_delta: float) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
+func _on_resume_button_pressed() -> void:
+	visible = false
+	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
 func _on_quit_button_pressed() -> void:
 	get_tree().paused = false
 	quit_button_pressed.emit()
