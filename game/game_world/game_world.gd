@@ -11,6 +11,7 @@ signal ended
 @onready var player_cam: Camera3D = $CanvasLayer/WorldViewport/SubViewport/PlayerViewport/SubViewport/Camera3D
 @onready var view_model_cam: Camera3D = $CanvasLayer/WorldViewport/SubViewport/ViewModelViewport/SubViewport/Camera3D
 @onready var label: Label = $CanvasLayer/LabelViewport/SubViewport/Label
+@onready var orb_collected_player: AudioStreamPlayer = $OrbCollectedPlayer
 
 @export var rng_seed: int = 0
 @export var width: int = 10
@@ -211,6 +212,7 @@ func _on_orb_collected(orb: Orb) -> void:
 		ended.emit()
 	else:
 		_show_text("%d" % [current_orb_count])
+		orb_collected_player.play()
 	
 	player.heal()
 

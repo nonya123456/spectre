@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://drem2vixfw264"]
+[gd_scene load_steps=10 format=3 uid="uid://drem2vixfw264"]
 
 [ext_resource type="Script" uid="uid://ct5fbsqon3n1f" path="res://game/game_world/game_world.gd" id="1_3xdgc"]
 [ext_resource type="PackedScene" uid="uid://bolwbkdcbqdjo" path="res://game/game_world/spectre/spectre.tscn" id="2_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://btclrhh2rhavb" path="res://game/game_world/player/player.tscn" id="3_8hsaj"]
 [ext_resource type="PackedScene" uid="uid://cqlu15akibhd7" path="res://game/game_world/pause_menu/pause_menu_viewport.tscn" id="5_3qnfg"]
 [ext_resource type="Shader" uid="uid://b7bcoud8wrmd1" path="res://game/game_world/game_world.gdshader" id="5_e5oes"]
+[ext_resource type="AudioStream" uid="uid://c4cuem48diu8l" path="res://game/game_world/orb_collected.ogg" id="6_3qnfg"]
 
 [sub_resource type="Environment" id="Environment_iexac"]
 background_mode = 2
@@ -123,6 +124,11 @@ vertical_alignment = 1
 
 [node name="PauseMenuViewport" parent="CanvasLayer" instance=ExtResource("5_3qnfg")]
 visible = false
+
+[node name="OrbCollectedPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_3qnfg")
+volume_db = -10.0
+pitch_scale = 1.2
 
 [connection signal="inactive" from="Spectre" to="." method="_on_spectre_inactive"]
 [connection signal="target_found" from="Spectre" to="." method="_on_spectre_target_found"]
