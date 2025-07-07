@@ -43,3 +43,6 @@ game/bin/*
 
 # compile_commands.json
 compile_commands.json
+
+# clangd
+.cache
