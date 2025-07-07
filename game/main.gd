@@ -6,10 +6,6 @@ extends Node
 @onready var current_scene: Node = $MainMenu
 
 
-func _ready() -> void:
-	print(Engine.get_license_text())
-
-
 func _on_main_menu_play_button_pressed() -> void:
 	var game_world: GameWorld = game_world_scene.instantiate()
 	game_world.ended.connect(_on_game_world_ended)
