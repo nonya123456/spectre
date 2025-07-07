@@ -33,6 +33,7 @@ var attack_timer: float
 @onready var spot_light: SpotLight3D = $Marker3D/SpotLight3D
 @onready var start_spot_range = spot_light.spot_range
 @onready var footstep_player: AudioStreamPlayer3D = $FootstepPlayer
+@onready var attacked_player: AudioStreamPlayer = $AttackedPlayer
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -107,6 +108,7 @@ func _process(delta: float) -> void:
 func _take_damage() -> void:
 	health -= 1
 	_update_spot_range()
+	attacked_player.play()
 
 
 func heal() -> void:
