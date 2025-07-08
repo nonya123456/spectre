@@ -108,7 +108,7 @@ func _process(delta: float) -> void:
 		else:
 			drained_player.play()
 
-			
+
 func heal() -> void:
 	energy_level = int(move_toward(energy_level, max_energy_level, 1))
 	drain_meter = 0.0
