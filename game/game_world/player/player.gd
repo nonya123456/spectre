@@ -16,9 +16,9 @@ var forced_look_position: Vector3
 var has_died: bool
 
 @export var max_energy_level: int = 4
-@export var drain_threshold: float = 20.0
+@export var drain_threshold: float = 10.0
 @export var drain_rate: float = 1.0
-@export var spot_range_per_energy_level: float = 2.0
+@export var spot_range_per_energy_level: float = 2.5
 var energy_level: int
 var drain_meter: float = 0.0
 var forced_look_drain_rate_multiplier: float = 2.0
@@ -68,7 +68,8 @@ func _physics_process(delta: float) -> void:
 	velocity.z = move_dir.z
 	velocity += Vector3.DOWN * 9.8 * delta
 
-	move_and_slide()
+	if !has_died:
+		move_and_slide()
 
 	if input_dir != Vector3.ZERO and last_input_dir != Vector3.ZERO:
 		footstep_timer += delta if !is_forced_look else 0.0
@@ -91,25 +92,22 @@ func _process(delta: float) -> void:
 		spot_light.visible = flicker
 	else:
 		spot_light.visible = true
-	
-	if is_forced_look:
-		drain_meter += drain_rate * forced_look_drain_rate_multiplier * delta
-		if drain_meter > drain_threshold:
-			_drain()
-			if energy_level <= 0 and !has_died:
-				has_died = true
-				died.emit()
 
-			drain_meter = 0.0
-	else:
-		drain_meter += drain_rate * delta
-		if drain_meter > drain_threshold && energy_level > 1:
-			_drain()
-			drain_meter = 0.0
+	if has_died:
+		return
+	
+	var drain_value: float = drain_rate * delta * (forced_look_drain_rate_multiplier if is_forced_look else 1.0)
+	drain_meter += drain_value
+	if drain_meter > drain_threshold:
+		_drain()
+		if energy_level <= 0:
+			has_died = true
+			died.emit()
 
 
 func _drain() -> void:
 	energy_level -= 1
+	drain_meter = 0.0
 	_set_range()
 	drained_player.play()
 
@@ -151,7 +149,7 @@ func _handle_look(delta: float) -> void:
 func start_forced_look(marker_position: Vector3) -> void:
 	is_forced_look = true
 	forced_look_position = marker_position
-	forced_look_drain_rate_multiplier = 20.0
+	forced_look_drain_rate_multiplier = 10.0
 
 
 func stop_forced_look() -> void:

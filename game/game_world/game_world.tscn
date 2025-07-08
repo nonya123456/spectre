@@ -34,6 +34,7 @@ environment = SubResource("Environment_iexac")
 
 [node name="Spectre" parent="." instance=ExtResource("2_8hsaj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19653, 0, 4.93551)
+wall_collision_mask = 1
 
 [node name="Player" parent="." instance=ExtResource("3_8hsaj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

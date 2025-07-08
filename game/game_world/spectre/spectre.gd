@@ -18,6 +18,7 @@ var target_in_sight: bool = false
 
 @export var target_enter_range: float = 4.0
 @export_flags_3d_physics var collision_mask: int
+@export_flags_3d_physics var wall_collision_mask: int
 
 
 func _physics_process(_delta: float) -> void:
@@ -66,3 +67,39 @@ func is_active() -> bool:
 func activate() -> void:
 	visible = true
 	active_timer = 30.0
+
+
+func teleport_nearby(target_position: Vector3) -> void:
+	target_position.y = 2.0
+
+	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+
+	var directions: PackedVector3Array = [
+		Vector3.LEFT,
+		Vector3.RIGHT,
+		Vector3.BACK,
+		Vector3.FORWARD,
+		Vector3(1, 0, 1).normalized(),
+		Vector3(-1, 0, 1).normalized(),
+		Vector3(1, 0, -1).normalized(),
+		Vector3(-1, 0, -1).normalized()
+	]
+
+	var final_position: Vector3 = target_position + Vector3.LEFT # default
+	var max_distance: float = 0.0
+
+	for direction in directions:
+		var query := PhysicsRayQueryParameters3D.create(target_position, target_position + direction * target_enter_range, wall_collision_mask, [self])
+		var result = space_state.intersect_ray(query)
+
+		var new_position = target_position + direction * target_enter_range - direction * 0.5 # avoid walls
+		if result.has("position"):
+			new_position = result["position"] - direction * 0.5 # avoid walls
+
+		var new_distance = new_position.distance_to(target_position)
+
+		if new_distance > max_distance:
+			max_distance = new_distance
+			final_position = new_position
+	
+	global_position = final_position
