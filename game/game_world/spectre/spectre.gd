@@ -103,3 +103,4 @@ func teleport_nearby(target_position: Vector3) -> void:
 			final_position = new_position
 	
 	global_position = final_position
+	target_in_sight = false

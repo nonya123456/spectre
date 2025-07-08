@@ -289,6 +289,7 @@ func _on_player_died() -> void:
 	has_ended = true
 	await get_tree().create_timer(1.0).timeout
 
+	occupied_cells.erase(spectre.index)
 	spectre.teleport_nearby(player.position)
 	await get_tree().create_timer(1.0).timeout
 
@@ -296,17 +297,6 @@ func _on_player_died() -> void:
 	await get_tree().create_timer(1.0).timeout
 
 	ended.emit()
-
-
-func _get_player_node_index() -> int:
-	var pos: Vector2 = Vector2(player.position.x, player.position.z)
-	var map_height: float = node_size * height + wall_thickness * (height + 1)
-	var map_width: float = node_size * width + wall_thickness * (width + 1)
-	
-	var i: int = floor((pos.x + map_height / 2 + node_size / 2) / (node_size + wall_thickness)) - 1
-	var j: int = floor((pos.y + map_width / 2 + node_size / 2) / (node_size + wall_thickness)) - 1
-	
-	return i * width + j
 
 
 func _notification(what: int) -> void:
