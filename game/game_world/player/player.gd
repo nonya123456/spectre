@@ -4,36 +4,39 @@ extends CharacterBody3D
 
 signal died
 
-@export var max_health: int = 4
 @export var move_speed: float = 3.0
 @export var sensitivity: float = 0.2
 @export var sway_strength: float = 0.0002
 @export var forced_look_rotate_speed: float = 8.0
 @export var forced_look_move_speed: float = 2.0
-
-@export var footstep_interval: float = 0.8
-var footstep_timer: float = 0.0
-var last_input_dir: Vector3 = Vector3.ZERO
-
 var look_input: Vector2 = Vector2.ZERO
 var pitch: float = 0.0
 var is_forced_look: bool = false
 var forced_look_position: Vector3
 var has_died: bool
 
-@export var attack_time: float = 1.0
-var attack_timer: float
+@export var max_energy_level: int = 4
+@export var drain_threshold: float = 20.0
+@export var drain_rate: float = 1.0
+@export var spot_range_per_energy_level: float = 2.0
+var energy_level: int
+var drain_meter: float = 0.0
+var forced_look_drain_rate_multiplier: float = 2.0
 
-@export var drain_time: float = 30.0
-@onready var drain_timer: float = drain_time
+@export var footstep_interval: float = 0.8
+var footstep_timer: float = 0.0
+var last_input_dir: Vector3 = Vector3.ZERO
 
-@onready var health = max_health
 @onready var marker: Marker3D = $Marker3D
 @onready var view_model: ViewModel = $Marker3D/ViewModel
 @onready var spot_light: SpotLight3D = $Marker3D/SpotLight3D
-@onready var start_spot_range = spot_light.spot_range
 @onready var footstep_player: AudioStreamPlayer3D = $FootstepPlayer
-@onready var attacked_player: AudioStreamPlayer = $AttackedPlayer
+@onready var drained_player: AudioStreamPlayer = $DrainedPlayer
+
+
+func _ready() -> void:
+	energy_level = max_energy_level
+	_set_range()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -90,35 +93,35 @@ func _process(delta: float) -> void:
 		spot_light.visible = true
 	
 	if is_forced_look:
-		attack_timer -= delta
-		if attack_timer < 0:
-			_take_damage()
-			attack_timer = attack_time
-
-			if health <= 0 and !has_died:
+		drain_meter += drain_rate * forced_look_drain_rate_multiplier * delta
+		if drain_meter > drain_threshold:
+			_drain()
+			if energy_level <= 0 and !has_died:
 				has_died = true
 				died.emit()
+
+			drain_meter = 0.0
 	else:
-		drain_timer -= delta
-		if drain_timer < 0 && health > 1:
-			_take_damage()
-			drain_timer = drain_time
+		drain_meter += drain_rate * delta
+		if drain_meter > drain_threshold && energy_level > 1:
+			_drain()
+			drain_meter = 0.0
 
 
-func _take_damage() -> void:
-	health -= 1
-	_update_spot_range()
-	attacked_player.play()
+func _drain() -> void:
+	energy_level -= 1
+	_set_range()
+	drained_player.play()
 
 
 func heal() -> void:
-	health = move_toward(health, max_health, 1)
-	drain_timer = drain_time
-	_update_spot_range()
+	energy_level = int(move_toward(energy_level, max_energy_level, 1))
+	drain_meter = 0.0
+	_set_range()
 
 
-func _update_spot_range() -> void:
-	spot_light.spot_range = start_spot_range * float(health) / float(max_health)
+func _set_range() -> void:
+	spot_light.spot_range = spot_range_per_energy_level * energy_level
 
 
 func _handle_look(delta: float) -> void:
@@ -148,7 +151,7 @@ func _handle_look(delta: float) -> void:
 func start_forced_look(marker_position: Vector3) -> void:
 	is_forced_look = true
 	forced_look_position = marker_position
-	attack_timer = attack_time
+	forced_look_drain_rate_multiplier = 20.0
 
 
 func stop_forced_look() -> void:

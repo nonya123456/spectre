@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://canb5ma08x6si" path="res://game/game_world/player/player.gd" id="1_dadds"]
 [ext_resource type="PackedScene" uid="uid://c0xfp88mk5t7l" path="res://game/game_world/player/view_model/view_model.tscn" id="2_b2mth"]
 [ext_resource type="AudioStream" uid="uid://c50reurkqp01a" path="res://game/game_world/player/footstep.ogg" id="3_3lyab"]
-[ext_resource type="AudioStream" uid="uid://brr66t48r1h5u" path="res://game/game_world/player/attacked.ogg" id="4_5oe01"]
+[ext_resource type="AudioStream" uid="uid://brr66t48r1h5u" path="res://game/game_world/player/drained.ogg" id="4_5oe01"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w5y0b"]
 
@@ -31,7 +31,7 @@ volume_db = -5.0
 pitch_scale = 1.2
 max_distance = 2305.0
 
-[node name="AttackedPlayer" type="AudioStreamPlayer" parent="."]
+[node name="DrainedPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_5oe01")
 volume_db = -10.0
 pitch_scale = 0.9
