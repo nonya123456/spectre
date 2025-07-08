@@ -287,8 +287,6 @@ func _on_player_died() -> void:
 		return
 	
 	has_ended = true
-	await get_tree().create_timer(1.0).timeout
-
 	occupied_cells.erase(spectre.index)
 	spectre.teleport_nearby(player.position)
 	await get_tree().create_timer(1.0).timeout

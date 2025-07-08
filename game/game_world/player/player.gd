@@ -99,19 +99,16 @@ func _process(delta: float) -> void:
 	var drain_value: float = drain_rate * delta * (forced_look_drain_rate_multiplier if is_forced_look else 1.0)
 	drain_meter += drain_value
 	if drain_meter > drain_threshold:
-		_drain()
+		drain_meter = 0.0
+		energy_level -= 1
+		_set_range()
 		if energy_level <= 0:
 			has_died = true
 			died.emit()
+		else:
+			drained_player.play()
 
-
-func _drain() -> void:
-	energy_level -= 1
-	drain_meter = 0.0
-	_set_range()
-	drained_player.play()
-
-
+			
 func heal() -> void:
 	energy_level = int(move_toward(energy_level, max_energy_level, 1))
 	drain_meter = 0.0
