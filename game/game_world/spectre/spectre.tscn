@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bolwbkdcbqdjo"]
+[gd_scene load_steps=4 format=3 uid="uid://bolwbkdcbqdjo"]
 
 [ext_resource type="Script" uid="uid://j2gyk6vbrll7" path="res://game/game_world/spectre/spectre.gd" id="1_6i8gk"]
 [ext_resource type="PackedScene" uid="uid://cekqmi4smdlv1" path="res://game/game_world/spectre/spectre_model.tscn" id="1_mufby"]
+[ext_resource type="AudioStream" uid="uid://yjasys67kmrs" path="res://game/game_world/spectre/hint.ogg" id="3_vr7do"]
 
 [node name="Spectre" type="Node3D"]
 script = ExtResource("1_6i8gk")
@@ -11,3 +12,8 @@ collision_mask = 5
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
+
+[node name="HintPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_vr7do")
+volume_db = -10.0
+pitch_scale = 0.7

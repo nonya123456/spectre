@@ -14,8 +14,11 @@ var target: Node3D = null
 var target_in_sight: bool = false
 var target_in_attack_range: bool = false
 
+var hint_timer: float = 10.0
+
 @onready var marker: Marker3D = $Marker3D
 @onready var spectre_model: SpectreModel = $SpectreModel
+@onready var hint_player: AudioStreamPlayer3D = $HintPlayer
 
 @export var target_attack_range: float = 4.0
 @export_flags_3d_physics var collision_mask: int
@@ -53,6 +56,11 @@ func _physics_process(_delta: float) -> void:
 
 
 func _process(delta: float) -> void:
+	hint_timer -= delta
+	if hint_timer < 0:
+		hint_timer = randf_range(15.0, 30.0)
+		hint_player.play()
+
 	if target_in_attack_range:
 		return
 
