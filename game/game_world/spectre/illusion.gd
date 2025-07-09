@@ -2,13 +2,13 @@ class_name Illusion
 
 extends Node3D
 
-signal found(illusion: Illusion)
+signal inactive(illusion: Illusion)
 
 var index: int
 
 var target: Node3D = null
 
-var is_found: bool
+var is_active: bool
 var found_timer: float = 0.25
 
 @onready var marker: Marker3D = $Marker3D
@@ -29,7 +29,7 @@ func _physics_process(_delta: float) -> void:
 	var direction: Vector3 = disp.normalized()
 	look_at(global_position - direction, Vector3.UP)
 
-	if is_found:
+	if !is_active:
 		return
 
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
@@ -41,22 +41,22 @@ func _physics_process(_delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-	if !is_found:
+	if is_active:
 		return
 	
 	found_timer -= delta
 	if found_timer < 0:
 		global_position = Vector3(0, -1000, 0)
-		found.emit(self)
+		inactive.emit(self)
 
 
 func handle_target_entered_sight() -> void:
-	is_found = true
+	is_active = false
 	spectre_model.set_shake(true)
 	teleport_player.play()
 
 
 func reset() -> void:
-	is_found = false
+	is_active = true
 	found_timer = 0.25
 	spectre_model.set_shake(false)

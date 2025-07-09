@@ -234,13 +234,13 @@ func _spawn_illusion() -> void:
 	illusion.index = index
 	illusion.target = player
 	illusion.position = Vector3(pos.x, 0.0, pos.y)
-	illusion.found.connect(_on_illusion_found)
+	illusion.inactive.connect(_on_illusion_inactive)
 	add_child(illusion)
 
 	occupied_cells[index] = null
 
 
-func _on_illusion_found(illusion: Illusion) -> void:
+func _on_illusion_inactive(illusion: Illusion) -> void:
 	occupied_cells.erase(illusion.index)
 
 	var index = _get_available_cell()
