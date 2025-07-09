@@ -15,7 +15,6 @@ signal ended
 @onready var forced_look_player: AudioStreamPlayer = $ForcedLookPlayer
 @onready var forced_look_entered_player: AudioStreamPlayer = $ForcedLookEnteredPlayer
 
-@export var rng_seed: int = 0
 @export var width: int = 10
 @export var height: int = 10
 @export var node_size: float = 3.0
@@ -40,6 +39,9 @@ var has_ended: bool
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	randomize()
+	var rng_seed: int = randi()
 
 	var maze_graph: MazeGraph = MazeGenerator.generate_maze(rng_seed, width, height)
 	var map_height: float = node_size * height + wall_thickness * (height + 1)
