@@ -311,8 +311,6 @@ func _get_nearby_cells(index: int, radius: int = 1) -> PackedInt32Array:
 	var cells: PackedInt32Array = []
 	for di in range(-radius, radius + 1):
 		for dj in range(-radius, radius + 1):
-			if di == 0 and dj == 0:
-				continue
 			if i + di < 0 or i + di >= height or j + dj < 0 or j + dj >= width:
 				continue
 			cells.append((i + di) * width + (j + dj))
