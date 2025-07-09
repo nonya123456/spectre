@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://42wwhoaj0omt"]
+[gd_scene load_steps=7 format=3 uid="uid://42wwhoaj0omt"]
 
 [ext_resource type="Texture2D" uid="uid://jeuteeho72mk" path="res://game/main_menu/background.png" id="1_f1bok"]
 [ext_resource type="Script" uid="uid://bs8fqto0gtb8h" path="res://game/main_menu/main_menu.gd" id="1_rlutr"]
-[ext_resource type="AudioStream" uid="uid://b5tqs10gk483b" path="res://game/shared/sounds/button_pressed.ogg" id="3_sp5am"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sp5am"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -57,6 +56,18 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
 text = "Play
+"
+flat = true
+alignment = 0
+
+[node name="SettingsButton" type="Button" parent="SubViewportContainer/SubViewport/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
+text = "Settings
 "
 flat = true
 alignment = 0
@@ -151,10 +162,48 @@ text = "Back"
 flat = true
 alignment = 0
 
-[node name="ButtonPressedPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_sp5am")
+[node name="Settings" type="Control" parent="SubViewportContainer/SubViewport"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Settings"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 30.0
+offset_right = 330.0
+offset_bottom = 130.0
+text = "Settings"
+label_settings = SubResource("LabelSettings_f1bok")
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="SubViewportContainer/SubViewport/Settings"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 458.333
+offset_top = 257.0
+offset_right = 558.333
+offset_bottom = 283.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxFlat_sp5am")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rlutr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlneu")
+text = "Back"
+flat = true
+alignment = 0
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Credits/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/Settings/BackButton" to="." method="_on_back_button_pressed"]

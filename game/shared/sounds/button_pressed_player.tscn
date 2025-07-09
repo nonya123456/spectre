@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bknjm8llrcumw"]
+
+[ext_resource type="AudioStream" uid="uid://b5tqs10gk483b" path="res://game/shared/sounds/button_pressed.ogg" id="1_bc22u"]
+
+[node name="ButtonPressedPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_bc22u")
+autoplay = true

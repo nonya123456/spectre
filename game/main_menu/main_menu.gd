@@ -12,8 +12,9 @@ var has_quit_button_pressed: bool
 @onready var buttons: Node = $SubViewportContainer/SubViewport/Buttons
 @onready var credits: Node = $SubViewportContainer/SubViewport/Credits
 @onready var credits_text: RichTextLabel = $SubViewportContainer/SubViewport/Credits/ScrollContainer/VBoxContainer/RichTextLabel
+@onready var settings: Node = $SubViewportContainer/SubViewport/Settings
 
-@onready var button_pressed_player: AudioStreamPlayer = $ButtonPressedPlayer
+@export var button_pressed_player_scene: PackedScene = preload("res://game/shared/sounds/button_pressed_player.tscn")
 
 
 func _ready() -> void:
@@ -22,7 +23,7 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
-	button_pressed_player.play()
+	_play_button_pressed_sound()
 	if has_play_button_pressed:
 		return
 
@@ -30,15 +31,23 @@ func _on_play_button_pressed() -> void:
 	play_button_pressed.emit()
 
 
+func _on_settings_button_pressed() -> void:
+	_play_button_pressed_sound()
+	settings.visible = true
+	credits.visible = false
+	title.visible = false
+	buttons.visible = false
+
+
 func _on_credits_button_pressed() -> void:
-	button_pressed_player.play()
+	_play_button_pressed_sound()
 	credits.visible = true
+	settings.visible = false
 	title.visible = false
 	buttons.visible = false
 
 
 func _on_quit_button_pressed() -> void:
-	button_pressed_player.play()
 	if has_quit_button_pressed:
 		return
 
@@ -47,7 +56,16 @@ func _on_quit_button_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
-	button_pressed_player.play()
+	_play_button_pressed_sound()
 	credits.visible = false
+	settings.visible = false
 	title.visible = true
 	buttons.visible = true
+
+
+func _play_button_pressed_sound() -> void:
+	var button_pressed_player: AudioStreamPlayer = button_pressed_player_scene.instantiate()
+	get_tree().get_root().add_child(button_pressed_player)
+	button_pressed_player.finished.connect(func() -> void:
+		button_pressed_player.queue_free()
+	)
