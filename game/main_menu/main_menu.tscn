@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://42wwhoaj0omt"]
+[gd_scene load_steps=10 format=3 uid="uid://42wwhoaj0omt"]
 
 [ext_resource type="Texture2D" uid="uid://jeuteeho72mk" path="res://game/main_menu/background.png" id="1_f1bok"]
 [ext_resource type="Script" uid="uid://bs8fqto0gtb8h" path="res://game/main_menu/main_menu.gd" id="1_rlutr"]
@@ -14,6 +14,13 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_f1bok"]
 font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_rlutr"]
+font_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u35ho"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxh41"]
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_rlutr")
@@ -42,6 +49,7 @@ texture = ExtResource("1_f1bok")
 expand_mode = 5
 
 [node name="Buttons" type="VBoxContainer" parent="SubViewportContainer/SubViewport"]
+visible = false
 offset_left = 90.0
 offset_top = 180.0
 offset_right = 290.0
@@ -97,6 +105,7 @@ flat = true
 alignment = 0
 
 [node name="Title" type="Label" parent="SubViewportContainer/SubViewport"]
+visible = false
 offset_left = 90.0
 offset_top = 30.0
 offset_right = 330.0
@@ -163,11 +172,12 @@ flat = true
 alignment = 0
 
 [node name="Settings" type="Control" parent="SubViewportContainer/SubViewport"]
-visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Settings"]
 layout_mode = 0
@@ -179,6 +189,30 @@ text = "Settings"
 label_settings = SubResource("LabelSettings_f1bok")
 vertical_alignment = 1
 
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Settings"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 140.0
+offset_right = 390.0
+offset_bottom = 320.0
+
+[node name="MasterVolume" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Settings/VBoxContainer/MasterVolume"]
+layout_mode = 2
+text = "Master Volume"
+label_settings = SubResource("LabelSettings_rlutr")
+
+[node name="HSlider" type="HSlider" parent="SubViewportContainer/SubViewport/Settings/VBoxContainer/MasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_u35ho")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_gxh41")
+max_value = 1.0
+step = 0.001
+value = 1.0
+
 [node name="BackButton" type="Button" parent="SubViewportContainer/SubViewport/Settings"]
 layout_mode = 1
 anchors_preset = 3
@@ -186,10 +220,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 458.333
-offset_top = 257.0
-offset_right = 558.333
-offset_bottom = 283.0
+offset_left = -141.667
+offset_top = -63.0
+offset_right = -41.6666
+offset_bottom = -37.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_vertical = 3
@@ -206,4 +240,5 @@ alignment = 0
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Credits/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="value_changed" from="SubViewportContainer/SubViewport/Settings/VBoxContainer/MasterVolume/HSlider" to="." method="_on_master_volume_h_slider_value_changed"]
 [connection signal="pressed" from="SubViewportContainer/SubViewport/Settings/BackButton" to="." method="_on_back_button_pressed"]
