@@ -143,10 +143,10 @@ func _handle_look(delta: float) -> void:
 		view_model.sway(Vector2(-look_input.x * sway_strength, look_input.y * sway_strength))
 
 
-func start_forced_look(marker_position: Vector3) -> void:
+func start_forced_look(marker_position: Vector3, drain_rate_multiplier: float) -> void:
 	is_forced_look = true
 	forced_look_position = marker_position
-	forced_look_drain_rate_multiplier = 10.0
+	forced_look_drain_rate_multiplier = drain_rate_multiplier
 
 
 func stop_forced_look() -> void:

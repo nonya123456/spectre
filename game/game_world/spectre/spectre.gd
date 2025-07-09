@@ -12,11 +12,12 @@ var active_timer: float
 
 var target: Node3D = null
 var target_in_sight: bool = false
+var target_in_attack_range: bool = false
 
 @onready var marker: Marker3D = $Marker3D
 @onready var spectre_model: SpectreModel = $SpectreModel
 
-@export var target_enter_range: float = 4.0
+@export var target_attack_range: float = 4.0
 @export_flags_3d_physics var collision_mask: int
 @export_flags_3d_physics var wall_collision_mask: int
 
@@ -35,14 +36,16 @@ func _physics_process(_delta: float) -> void:
 	var query := PhysicsRayQueryParameters3D.create(marker.global_position, target.global_position, collision_mask, [self])
 	var result = space_state.intersect_ray(query)
 
-	if !target_in_sight and (result.has("collider") and result["collider"] == target and disp.length() <= target_enter_range):
-		target_in_sight = true
+	target_in_sight = result.has("collider") and result["collider"] == target
+
+	if !target_in_attack_range and (target_in_sight and disp.length() <= target_attack_range):
+		target_in_attack_range = true
 		target_found.emit(marker.global_position)
 		spectre_model.set_emission_strength(4.0)
 		spectre_model.set_emission_color(Color.DARK_RED)
 
-	if target_in_sight and (!result.has("collider") or result["collider"] != target):
-		target_in_sight = false
+	if target_in_attack_range and !target_in_sight:
+		target_in_attack_range = false
 		target_lost.emit()
 		active_timer = 0
 		spectre_model.set_emission_strength(2.0)
@@ -50,13 +53,16 @@ func _physics_process(_delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-	if target_in_sight:
+	if target_in_attack_range:
 		return
 
-	active_timer -= delta
+	if !target_in_sight:
+		active_timer -= delta
+
 	if active_timer <= 0:
 		visible = false
 		target_in_sight = false
+		target_in_attack_range = false
 		inactive.emit()
 
 
@@ -64,9 +70,9 @@ func is_active() -> bool:
 	return active_timer > 0
 
 
-func activate() -> void:
+func activate(duration: float) -> void:
 	visible = true
-	active_timer = 30.0
+	active_timer = duration
 
 
 func teleport_nearby(target_position: Vector3) -> void:
@@ -89,10 +95,10 @@ func teleport_nearby(target_position: Vector3) -> void:
 	var max_distance: float = 0.0
 
 	for direction in directions:
-		var query := PhysicsRayQueryParameters3D.create(target_position, target_position + direction * target_enter_range, wall_collision_mask, [self])
+		var query := PhysicsRayQueryParameters3D.create(target_position, target_position + direction * target_attack_range, wall_collision_mask, [self])
 		var result = space_state.intersect_ray(query)
 
-		var new_position = target_position + direction * target_enter_range - direction * 0.5 # avoid walls
+		var new_position = target_position + direction * target_attack_range - direction * 0.5 # avoid walls
 		if result.has("position"):
 			new_position = result["position"] - direction * 0.5 # avoid walls
 
@@ -103,4 +109,5 @@ func teleport_nearby(target_position: Vector3) -> void:
 			final_position = new_position
 	
 	global_position = final_position
+	target_in_attack_range = false
 	target_in_sight = false

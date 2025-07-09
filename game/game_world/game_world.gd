@@ -36,6 +36,9 @@ var occupied_cells: Dictionary = {}
 
 var has_ended: bool
 
+var current_drain_rate_multiplier: float = 5.0
+var current_active_duration: float = 25.0
+
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -123,7 +126,7 @@ func _ready() -> void:
 		spectre.index = spectre_index
 		var pos: Vector2 = _get_node_center(spectre_index)
 		spectre.position = Vector3(pos.x, 0.0, pos.y)
-		spectre.activate()
+		spectre.activate(current_active_duration)
 		occupied_cells[spectre_index] = null
 
 	for i in range(orb_count):
@@ -172,7 +175,7 @@ func _update_effects(delta: float) -> void:
 
 func _on_spectre_target_found(marker_position: Vector3) -> void:
 	forced_look = true
-	player.start_forced_look(marker_position)
+	player.start_forced_look(marker_position, current_drain_rate_multiplier)
 	forced_look_entered_player.play()
 	forced_look_player.play()
 
@@ -223,12 +226,20 @@ func _on_orb_collected(orb: Orb) -> void:
 	
 	if current_orb_count == 9:
 		_spawn_illusion()
+		current_drain_rate_multiplier = 8.0
 	elif current_orb_count == 6:
 		_spawn_illusion()
+		current_drain_rate_multiplier = 12.0
+		current_active_duration = 15.0
 	elif current_orb_count == 4:
 		_spawn_illusion()
+		current_drain_rate_multiplier = 16.0
+		current_active_duration = 10.0
+	elif current_orb_count == 3:
+		current_drain_rate_multiplier = 20.0
 	elif current_orb_count == 2:
 		_spawn_illusion()
+		current_active_duration = 5.0
 
 	
 func _spawn_illusion() -> void:
@@ -286,7 +297,7 @@ func _on_spectre_inactive() -> void:
 	spectre.index = index
 	var pos: Vector2 = _get_node_center(index)
 	spectre.position = Vector3(pos.x, 0.0, pos.y)
-	spectre.activate()
+	spectre.activate(current_active_duration)
 
 	occupied_cells[index] = null
 
