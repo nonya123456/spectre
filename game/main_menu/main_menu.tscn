@@ -49,7 +49,6 @@ texture = ExtResource("1_f1bok")
 expand_mode = 5
 
 [node name="Buttons" type="VBoxContainer" parent="SubViewportContainer/SubViewport"]
-visible = false
 offset_left = 90.0
 offset_top = 180.0
 offset_right = 290.0
@@ -105,7 +104,6 @@ flat = true
 alignment = 0
 
 [node name="Title" type="Label" parent="SubViewportContainer/SubViewport"]
-visible = false
 offset_left = 90.0
 offset_top = 30.0
 offset_right = 330.0
@@ -172,6 +170,7 @@ flat = true
 alignment = 0
 
 [node name="Settings" type="Control" parent="SubViewportContainer/SubViewport"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
