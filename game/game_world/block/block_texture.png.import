@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7rqk7x3kbc6f"
 path.s3tc="res://.godot/imported/block_texture.png-dbf6202ead9f967d7e618a63354e8977.s3tc.ctex"
+path.etc2="res://.godot/imported/block_texture.png-dbf6202ead9f967d7e618a63354e8977.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://game/game_world/block/block_texture.png"
-dest_files=["res://.godot/imported/block_texture.png-dbf6202ead9f967d7e618a63354e8977.s3tc.ctex"]
+dest_files=["res://.godot/imported/block_texture.png-dbf6202ead9f967d7e618a63354e8977.s3tc.ctex", "res://.godot/imported/block_texture.png-dbf6202ead9f967d7e618a63354e8977.etc2.ctex"]
 
 [params]
 

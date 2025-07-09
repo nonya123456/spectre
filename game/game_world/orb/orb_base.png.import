@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cds21ox2jjsc5"
 path.s3tc="res://.godot/imported/orb_base.png-868776d4999d8becd60cc95ffd6f907f.s3tc.ctex"
+path.etc2="res://.godot/imported/orb_base.png-868776d4999d8becd60cc95ffd6f907f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://game/game_world/orb/orb_base.png"
-dest_files=["res://.godot/imported/orb_base.png-868776d4999d8becd60cc95ffd6f907f.s3tc.ctex"]
+dest_files=["res://.godot/imported/orb_base.png-868776d4999d8becd60cc95ffd6f907f.s3tc.ctex", "res://.godot/imported/orb_base.png-868776d4999d8becd60cc95ffd6f907f.etc2.ctex"]
 
 [params]
 

@@ -57,3 +57,7 @@ toggle_pause={
 3d_physics/layer_1="default"
 3d_physics/layer_2="view_model"
 3d_physics/layer_3="player"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

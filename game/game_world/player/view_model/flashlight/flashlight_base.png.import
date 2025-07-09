@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://jvc433u46e2w"
 path.s3tc="res://.godot/imported/flashlight_base.png-37c6d31de08eb4f777844312e4f8e43b.s3tc.ctex"
+path.etc2="res://.godot/imported/flashlight_base.png-37c6d31de08eb4f777844312e4f8e43b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://game/game_world/player/view_model/flashlight/flashlight_base.png"
-dest_files=["res://.godot/imported/flashlight_base.png-37c6d31de08eb4f777844312e4f8e43b.s3tc.ctex"]
+dest_files=["res://.godot/imported/flashlight_base.png-37c6d31de08eb4f777844312e4f8e43b.s3tc.ctex", "res://.godot/imported/flashlight_base.png-37c6d31de08eb4f777844312e4f8e43b.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccfjna47c7ff3"
 path.s3tc="res://.godot/imported/orb_emission.png-4db9d17eb924fb629b834b6b6ee50c9e.s3tc.ctex"
+path.etc2="res://.godot/imported/orb_emission.png-4db9d17eb924fb629b834b6b6ee50c9e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://game/game_world/orb/orb_emission.png"
-dest_files=["res://.godot/imported/orb_emission.png-4db9d17eb924fb629b834b6b6ee50c9e.s3tc.ctex"]
+dest_files=["res://.godot/imported/orb_emission.png-4db9d17eb924fb629b834b6b6ee50c9e.s3tc.ctex", "res://.godot/imported/orb_emission.png-4db9d17eb924fb629b834b6b6ee50c9e.etc2.ctex"]
 
 [params]
 
