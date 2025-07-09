@@ -88,7 +88,7 @@ func _process(delta: float) -> void:
 
 
 func _reset_hint_timer() -> void:
-	hint_timer = randf_range(20.0, 40.0)
+	hint_timer = randf_range(15.0, 40.0)
 
 
 func is_active() -> bool:
@@ -98,7 +98,6 @@ func is_active() -> bool:
 func activate(duration: float) -> void:
 	visible = true
 	active_timer = duration
-	_reset_hint_timer()
 
 
 func teleport_nearby(target_position: Vector3) -> void:

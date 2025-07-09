@@ -132,12 +132,12 @@ visible = false
 
 [node name="OrbCollectedPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_3qnfg")
-volume_db = -10.0
+volume_db = -18.0
 pitch_scale = 1.2
 
 [node name="ForcedLookPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_8ti5s")
-volume_db = -25.0
+volume_db = -20.0
 pitch_scale = 0.9
 parameters/looping = true
 
