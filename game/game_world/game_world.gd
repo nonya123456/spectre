@@ -36,8 +36,8 @@ var occupied_cells: Dictionary = {}
 
 var has_ended: bool
 
-var current_drain_rate_multiplier: float = 5.0
-var current_active_duration: float = 15.0
+var current_drain_rate_multiplier: float = 4.0
+var current_active_duration: float = 16.0
 
 
 func _ready() -> void:
@@ -225,30 +225,14 @@ func _on_orb_collected(orb: Orb) -> void:
 	else:
 		_show_text("%d" % [current_orb_count])
 		orb_collected_player.play()
-	
-	if current_orb_count == 11:
-		_spawn_illusion()
-		current_drain_rate_multiplier = 6.0
-		current_active_duration = 14.0
-	elif current_orb_count == 9:
-		_spawn_illusion()
-		current_drain_rate_multiplier = 8.0
-		current_active_duration = 12.0
-	elif current_orb_count == 6:
-		_spawn_illusion()
-		current_drain_rate_multiplier = 12.0
-		current_active_duration = 10.0
-	elif current_orb_count == 4:
-		_spawn_illusion()
-		current_drain_rate_multiplier = 16.0
-		current_active_duration = 8.0
-	elif current_orb_count == 3:
-		current_drain_rate_multiplier = 20.0
-	elif current_orb_count == 2:
-		_spawn_illusion()
-		current_active_duration = 5.0
 
-	
+	if current_orb_count % 2 == 0:
+		_spawn_illusion()
+		current_drain_rate_multiplier += 2.0
+	else:
+		current_active_duration -= 2.0
+
+
 func _spawn_illusion() -> void:
 	var player_index: int = _get_approximate_player_cell()
 	var inner_nearby_cells: PackedInt32Array = _get_nearby_cells(player_index, 3)
