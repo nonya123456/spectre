@@ -14,7 +14,7 @@ var target: Node3D = null
 var target_in_sight: bool = false
 var target_in_attack_range: bool = false
 
-var hint_timer: float = 10.0
+var hint_timer: float
 
 @onready var marker: Marker3D = $Marker3D
 @onready var spectre_model: SpectreModel = $SpectreModel
@@ -23,6 +23,10 @@ var hint_timer: float = 10.0
 @export var target_attack_range: float = 4.0
 @export_flags_3d_physics var collision_mask: int
 @export_flags_3d_physics var wall_collision_mask: int
+
+
+func _ready() -> void:
+	_reset_hint_timer()
 
 
 func _physics_process(_delta: float) -> void:
@@ -58,8 +62,8 @@ func _physics_process(_delta: float) -> void:
 func _process(delta: float) -> void:
 	hint_timer -= delta
 	if hint_timer < 0:
-		hint_timer = randf_range(15.0, 30.0)
 		hint_player.play()
+		_reset_hint_timer()
 
 	if target_in_attack_range:
 		return
@@ -74,6 +78,10 @@ func _process(delta: float) -> void:
 		inactive.emit()
 
 
+func _reset_hint_timer() -> void:
+	hint_timer = randf_range(30.0, 90.0)
+
+
 func is_active() -> bool:
 	return active_timer > 0
 
@@ -81,6 +89,7 @@ func is_active() -> bool:
 func activate(duration: float) -> void:
 	visible = true
 	active_timer = duration
+	_reset_hint_timer()
 
 
 func teleport_nearby(target_position: Vector3) -> void:
