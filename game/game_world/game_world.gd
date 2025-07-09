@@ -37,7 +37,7 @@ var occupied_cells: Dictionary = {}
 var has_ended: bool
 
 var current_drain_rate_multiplier: float = 5.0
-var current_active_duration: float = 25.0
+var current_active_duration: float = 20.0
 
 
 func _ready() -> void:
@@ -114,14 +114,16 @@ func _ready() -> void:
 				corner.position = Vector3(pos_x, node_height / 2, pos_z)
 				map.add_child(corner)
 
-	var player_index: int = _get_available_cell()
+	var player_index: int = _get_available_cell([], [])
 	if player_index != -1:
 		var pos: Vector2 = _get_node_center(player_index)
 		player.position.x = pos.x
 		player.position.z = pos.y
-	
+
+	var nearby_cells: PackedInt32Array = _get_nearby_cells(player_index, 2)
+
 	spectre.target = player
-	var spectre_index: int = _get_available_cell()
+	var spectre_index: int = _get_available_cell([], nearby_cells)
 	if spectre_index != -1:
 		spectre.index = spectre_index
 		var pos: Vector2 = _get_node_center(spectre_index)
@@ -130,7 +132,7 @@ func _ready() -> void:
 		occupied_cells[spectre_index] = null
 
 	for i in range(orb_count):
-		_spawn_orb()
+		_spawn_orb(nearby_cells)
 	
 	_show_text("%d" % [current_orb_count])
 
@@ -186,8 +188,8 @@ func _on_spectre_target_lost() -> void:
 	forced_look_player.stop()
 
 
-func _spawn_orb() -> void:
-	var index = _get_available_cell()
+func _spawn_orb(excluded_indices: PackedInt32Array = []) -> void:
+	var index = _get_available_cell([], excluded_indices)
 	if index == -1:
 		return
 
@@ -243,7 +245,10 @@ func _on_orb_collected(orb: Orb) -> void:
 
 	
 func _spawn_illusion() -> void:
-	var index = _get_available_cell()
+	var player_index: int = _get_approximate_player_cell()
+	var inner_nearby_cells: PackedInt32Array = _get_nearby_cells(player_index, 3)
+
+	var index: int = _get_available_cell([], inner_nearby_cells)
 	if index == -1:
 		return
 
@@ -261,7 +266,10 @@ func _spawn_illusion() -> void:
 func _on_illusion_inactive(illusion: Illusion) -> void:
 	occupied_cells.erase(illusion.index)
 
-	var index = _get_available_cell()
+	var player_index: int = _get_approximate_player_cell()
+	var inner_nearby_cells: PackedInt32Array = _get_nearby_cells(player_index, 3)
+
+	var index: int = _get_available_cell([], inner_nearby_cells)
 	if index == -1:
 		return
 
@@ -273,12 +281,22 @@ func _on_illusion_inactive(illusion: Illusion) -> void:
 	occupied_cells[index] = null
 
 
-func _get_available_cell() -> int:
+func _get_available_cell(included_indices: PackedInt32Array, excluded_indices: PackedInt32Array) -> int:
 	var possible_numbers: PackedInt32Array = []
-	for i in range(0, width * height):
-		if occupied_cells.has(i):
-			continue
-		possible_numbers.append(i)
+	if included_indices.is_empty():
+		for i in range(0, width * height):
+			if occupied_cells.has(i):
+				continue
+			if excluded_indices.has(i):
+				continue
+			possible_numbers.append(i)
+	else:
+		for i in included_indices:
+			if occupied_cells.has(i):
+				continue
+			if excluded_indices.has(i):
+				continue
+			possible_numbers.append(i)
 	
 	if possible_numbers.is_empty():
 		return -1
@@ -287,12 +305,38 @@ func _get_available_cell() -> int:
 	return possible_numbers[random_index]
 
 
+func _get_nearby_cells(index: int, radius: int = 1) -> PackedInt32Array:
+	var i: int = int(index / floor(width))
+	var j: int = index % height
+	var cells: PackedInt32Array = []
+	for di in range(-radius, radius + 1):
+		for dj in range(-radius, radius + 1):
+			if di == 0 and dj == 0:
+				continue
+			if i + di < 0 or i + di >= height or j + dj < 0 or j + dj >= width:
+				continue
+			cells.append((i + di) * width + (j + dj))
+	return cells
+
+
+func _get_approximate_player_cell() -> int:
+	var map_height: float = node_size * height + wall_thickness * (height + 1)
+	var map_width: float = node_size * width + wall_thickness * (width + 1)
+	var i: int = int((player.position.x + map_height / 2) / (node_size + wall_thickness))
+	var j: int = int((player.position.z + map_width / 2) / (node_size + wall_thickness))
+	return i * width + j
+
+
 func _on_spectre_inactive() -> void:
 	occupied_cells.erase(spectre.index)
 
-	var index: int = _get_available_cell()
+	var player_index: int = _get_approximate_player_cell()
+	var inner_nearby_cells: PackedInt32Array = _get_nearby_cells(player_index, 2)
+	var outer_nearby_cells: PackedInt32Array = _get_nearby_cells(player_index, 4)
+
+	var index: int = _get_available_cell(outer_nearby_cells, inner_nearby_cells)
 	if index == -1:
-		return
+		index = _get_available_cell([], inner_nearby_cells)
 
 	spectre.index = index
 	var pos: Vector2 = _get_node_center(index)
