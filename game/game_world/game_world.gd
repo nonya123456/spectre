@@ -209,7 +209,7 @@ func _show_text(text: String):
 func _on_orb_collected(orb: Orb) -> void:
 	occupied_cells.erase(orb.index)
 
-	_spawn_illusion()
+	player.heal()
 
 	current_orb_count -= 1
 	if current_orb_count <= 0 and !has_ended:
@@ -221,9 +221,16 @@ func _on_orb_collected(orb: Orb) -> void:
 		_show_text("%d" % [current_orb_count])
 		orb_collected_player.play()
 	
-	player.heal()
+	if current_orb_count == 9:
+		_spawn_illusion()
+	elif current_orb_count == 6:
+		_spawn_illusion()
+	elif current_orb_count == 4:
+		_spawn_illusion()
+	elif current_orb_count == 2:
+		_spawn_illusion()
 
-
+	
 func _spawn_illusion() -> void:
 	var index = _get_available_cell()
 	if index == -1:

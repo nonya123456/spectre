@@ -16,7 +16,7 @@ var forced_look_position: Vector3
 var has_died: bool
 
 @export var max_energy_level: int = 4
-@export var drain_threshold: float = 10.0
+@export var drain_threshold: float = 15.0
 @export var drain_rate: float = 1.0
 @export var spot_range_per_energy_level: float = 2.5
 var energy_level: int

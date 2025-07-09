@@ -15,6 +15,7 @@ var found_timer: float = 0.25
 @onready var spectre_model: SpectreModel = $SpectreModel
 @onready var teleport_player: AudioStreamPlayer3D = $TeleportPlayer
 
+@export var inactive_range: float = 20.0
 @export var sight_range: float = 4.0
 @export_flags_3d_physics var collision_mask: int
 
@@ -31,13 +32,18 @@ func _physics_process(_delta: float) -> void:
 
 	if !is_active:
 		return
-
+	
+	if disp.length() > inactive_range:
+		_deactivate()
+		return
+	
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var query := PhysicsRayQueryParameters3D.create(marker.global_position, target.global_position, collision_mask, [self])
 	var result = space_state.intersect_ray(query)
 
 	if result.has("collider") and result["collider"] == target and disp.length() <= sight_range:
-		handle_target_entered_sight()
+		_deactivate()
+		teleport_player.play()
 
 
 func _process(delta: float) -> void:
@@ -50,10 +56,9 @@ func _process(delta: float) -> void:
 		inactive.emit(self)
 
 
-func handle_target_entered_sight() -> void:
+func _deactivate() -> void:
 	is_active = false
 	spectre_model.set_shake(true)
-	teleport_player.play()
 
 
 func reset() -> void:
