@@ -18,6 +18,7 @@ var has_died: bool
 @export var max_energy_level: int = 4
 @export var drain_threshold: float = 15.0
 @export var drain_rate: float = 1.0
+@export var drain_flicker_threshold: float = 12.5
 @export var spot_range_per_energy_level: float = 2.5
 var energy_level: int
 var drain_meter: float = 0.0
@@ -87,12 +88,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-	if is_forced_look:
+	if is_forced_look or drain_meter > drain_flicker_threshold:
 		var flicker = abs(sin(Time.get_ticks_msec() * 0.02)) > 0.3
 		spot_light.visible = flicker
 	else:
 		spot_light.visible = true
-
+	
 	if has_died:
 		return
 	
