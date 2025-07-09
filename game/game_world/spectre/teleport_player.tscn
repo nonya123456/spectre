@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfsqrbeguvkid"]
+
+[ext_resource type="AudioStream" uid="uid://c8pxhubjgal7d" path="res://game/game_world/spectre/teleport.ogg" id="1_4bayn"]
+
+[node name="TeleportPlayer" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_4bayn")
+volume_db = -12.0
+pitch_scale = 0.4
+autoplay = true
+max_distance = 10.0
