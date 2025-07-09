@@ -23,7 +23,7 @@ signal ended
 @export var illusion_scene: PackedScene = preload("res://game/game_world/spectre/illusion.tscn")
 @export var block_scene: PackedScene = preload("res://game/game_world/block/block.tscn")
 @export var orb_scene: PackedScene = preload("res://game/game_world/orb/orb.tscn")
-@export var orb_count: int = 10
+@export var orb_count: int = 12
 
 var current_orb_count: int
 
@@ -37,7 +37,7 @@ var occupied_cells: Dictionary = {}
 var has_ended: bool
 
 var current_drain_rate_multiplier: float = 5.0
-var current_active_duration: float = 20.0
+var current_active_duration: float = 15.0
 
 
 func _ready() -> void:
@@ -226,17 +226,22 @@ func _on_orb_collected(orb: Orb) -> void:
 		_show_text("%d" % [current_orb_count])
 		orb_collected_player.play()
 	
-	if current_orb_count == 9:
+	if current_orb_count == 11:
+		_spawn_illusion()
+		current_drain_rate_multiplier = 6.0
+		current_active_duration = 14.0
+	elif current_orb_count == 9:
 		_spawn_illusion()
 		current_drain_rate_multiplier = 8.0
+		current_active_duration = 12.0
 	elif current_orb_count == 6:
 		_spawn_illusion()
 		current_drain_rate_multiplier = 12.0
-		current_active_duration = 15.0
+		current_active_duration = 10.0
 	elif current_orb_count == 4:
 		_spawn_illusion()
 		current_drain_rate_multiplier = 16.0
-		current_active_duration = 10.0
+		current_active_duration = 8.0
 	elif current_orb_count == 3:
 		current_drain_rate_multiplier = 20.0
 	elif current_orb_count == 2:

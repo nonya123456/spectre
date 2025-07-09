@@ -15,7 +15,7 @@ var found_timer: float = 0.25
 @onready var spectre_model: SpectreModel = $SpectreModel
 
 @export var inactive_range: float = 20.0
-@export var sight_range: float = 4.0
+@export var sight_range: float = 3.0
 @export_flags_3d_physics var collision_mask: int
 @export var teleport_player_scene: PackedScene = preload("res://game/game_world/spectre/teleport_player.tscn")
 

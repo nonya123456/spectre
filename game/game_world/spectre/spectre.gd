@@ -20,10 +20,11 @@ var hint_timer: float
 @onready var spectre_model: SpectreModel = $SpectreModel
 @onready var hint_player: AudioStreamPlayer3D = $HintPlayer
 
-@export var target_attack_range: float = 4.0
+@export var target_attack_range: float = 6.0
 @export_flags_3d_physics var collision_mask: int
 @export_flags_3d_physics var wall_collision_mask: int
 
+@export var inactive_range: float = 15.0
 
 func _ready() -> void:
 	_reset_hint_timer()
@@ -39,6 +40,10 @@ func _physics_process(_delta: float) -> void:
 	var direction: Vector3 = disp.normalized()
 	look_at(global_position - direction, Vector3.UP)
 
+	if disp.length() > inactive_range:
+		_deactivate()
+		return
+
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var query := PhysicsRayQueryParameters3D.create(marker.global_position, target.global_position, collision_mask, [self])
 	var result = space_state.intersect_ray(query)
@@ -52,11 +57,15 @@ func _physics_process(_delta: float) -> void:
 		spectre_model.set_emission_color(Color.DARK_RED)
 
 	if target_in_attack_range and !target_in_sight:
-		target_in_attack_range = false
-		target_lost.emit()
-		active_timer = 0
-		spectre_model.set_emission_strength(2.0)
-		spectre_model.set_emission_color(Color.WHITE)
+		_deactivate()
+
+
+func _deactivate() -> void:
+	target_in_attack_range = false
+	target_lost.emit()
+	active_timer = 0
+	spectre_model.set_emission_strength(2.0)
+	spectre_model.set_emission_color(Color.WHITE)
 
 
 func _process(delta: float) -> void:
@@ -79,7 +88,7 @@ func _process(delta: float) -> void:
 
 
 func _reset_hint_timer() -> void:
-	hint_timer = randf_range(30.0, 90.0)
+	hint_timer = randf_range(20.0, 40.0)
 
 
 func is_active() -> bool:
