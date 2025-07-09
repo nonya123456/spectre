@@ -4,4 +4,5 @@
 
 [node name="ButtonPressedPlayer" type="AudioStreamPlayer"]
 stream = ExtResource("1_bc22u")
+volume_db = 5.0
 autoplay = true

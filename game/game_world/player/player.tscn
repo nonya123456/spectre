@@ -27,11 +27,10 @@ spot_angle = 37.5
 
 [node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_3lyab")
-volume_db = -5.0
 pitch_scale = 1.2
 max_distance = 2305.0
 
 [node name="DrainedPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_5oe01")
-volume_db = -10.0
+volume_db = -5.0
 pitch_scale = 0.9
